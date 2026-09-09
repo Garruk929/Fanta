@@ -7,25 +7,44 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#08111d">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="stylesheet" href="style.css?v=6">
-<title>Fanta Live</title>
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css?v=7">
+<title>Fanta Live — Assistente Asta</title>
 </head>
 <body>
 <div class="app">
   <header class="header">
     <div class="brand">
-      <div class="brand-left"><div class="logo">⚽</div><div><h1>Fanta Live</h1><div class="sub" id="headerSub"></div></div></div>
-      <div class="brand-actions"><button class="icon" id="undoBtn" title="Annulla ultima operazione">↶</button><button class="icon" id="settingsBtn" title="Impostazioni">⚙️</button></div>
+      <div class="brand-left">
+        <div class="logo"><img src="logo.svg" alt="Fanta Live"></div>
+        <div><h1>Fanta Live</h1><div class="sub" id="headerSub"></div></div>
+      </div>
+      <div class="brand-actions">
+        <button class="icon" id="undoBtn" title="Annulla ultima operazione">↶</button>
+        <button class="icon" id="settingsBtn" title="Impostazioni">⚙️</button>
+      </div>
     </div>
 
     <div class="hero">
-      <div class="hero-card"><span>Crediti rimasti</span><b id="credits">500</b><small id="delta">Strategia in equilibrio</small></div>
-      <div class="hero-card"><span>Posti liberi</span><b id="slots">25</b><small>Riserva minima <i id="reserve">25</i> cr</small></div>
+      <div class="hero-card">
+        <span>Crediti rimasti</span>
+        <b id="credits">500</b>
+        <small id="delta">Strategia in equilibrio</small>
+      </div>
+      <div class="hero-card">
+        <span>Posti liberi</span>
+        <b id="slots">25</b>
+        <small>Riserva minima <i id="reserve">25</i> cr</small>
+      </div>
     </div>
 
     <div class="roles" id="roles"></div>
 
-    <div class="search"><span>⌕</span><input id="search" placeholder="Cerca giocatore…" autocomplete="off" autocapitalize="off"><button id="clear">×</button></div>
+    <div class="search">
+      <span>⌕</span>
+      <input id="search" placeholder="Cerca giocatore…" autocomplete="off" autocapitalize="off">
+      <button id="clear">×</button>
+    </div>
 
     <div class="chips">
       <button class="chip active" data-f="ALL">Tutti</button>
@@ -39,7 +58,11 @@
     </div>
   </header>
 
-  <div class="statusline"><span id="loadState">Caricamento listone…</span><span id="photoState"></span></div>
+  <div class="statusline">
+    <span id="loadState">Caricamento listone…</span>
+    <span id="photoState"></span>
+  </div>
+
   <div class="strategy" id="strategy"></div>
 
   <div class="section"><h2>Giocatori</h2><small id="count"></small></div>
@@ -52,7 +75,10 @@
 <div class="overlay" id="playerModal"><div class="sheet">
   <div class="grab"></div>
   <div class="player-head">
-    <div class="head-main"><div class="photo big" id="modalPhoto"></div><div class="head-copy"><h3 id="pn"></h3><div class="meta" id="pm"></div><div class="tags" id="ptags"></div></div></div>
+    <div class="head-main">
+      <div class="photo big" id="modalPhoto"></div>
+      <div class="head-copy"><h3 id="pn"></h3><div class="meta" id="pm"></div><div class="tags" id="ptags"></div></div>
+    </div>
     <div class="cap"><b id="pc"></b><small>HARD STOP</small></div>
   </div>
   <div class="signal" id="signal"></div>
@@ -61,7 +87,8 @@
   <div class="box plan"><strong id="why1"></strong><br><span id="why2"></span></div>
   <div class="buy"><input id="price" type="number" inputmode="numeric" min="1" placeholder="Prezzo"><button id="buyBtn">✓ Preso da me</button></div>
   <button class="wide" id="otherBtn">Uscito / preso da un altro</button>
-  <div class="section compact"><h2>3 alternative</h2></div><div class="alts" id="alts"></div>
+  <div class="section compact"><h2>3 alternative</h2></div>
+  <div class="alts" id="alts"></div>
   <button class="close" id="closePlayer">Chiudi</button>
 </div></div>
 
@@ -86,8 +113,17 @@
     <input id="importFile" type="file" accept="application/json" hidden>
     <button class="settingAction danger" id="resetBtn">Azzera asta</button>
   </div>
+
+  <div class="settingsSection aboutBox">
+    <div class="aboutTitle"><img src="logo.svg" alt=""><div><strong>Fanta Live</strong><span>Versione 7.0</span></div></div>
+    <p>I dati della tua asta restano sul dispositivo: non servono account e non vengono inviati a un server dell'app.</p>
+    <p>Progetto indipendente, non affiliato a Fantacalcio.it o Leghe Fantacalcio. Quotazioni, foto e informazioni sportive restano di proprietà delle rispettive fonti.</p>
+    <a href="https://github.com/Garruk929/Fanta" target="_blank" rel="noopener">Repository pubblica ↗</a>
+  </div>
+
   <button class="close" id="closeCfg">Chiudi</button>
 </div></div>
 
-<script src="app.js?v=6"></script>
-</body></html>
+<script src="app.js?v=7"></script>
+</body>
+</html>
