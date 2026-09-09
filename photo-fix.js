@@ -100,3 +100,13 @@
   loadOfficialPhotos();
   setTimeout(()=>loadOfficialPhotos(),1400);
 })();
+
+/* Bootstrap delle rifiniture 2.3.x: l'index storico continua a caricare photo-fix.js,
+   quindi usiamo questo punto stabile per applicare sempre la UI più recente. */
+window.addEventListener('load',()=>{
+  const load=src=>new Promise((resolve,reject)=>{
+    if(document.querySelector(`script[src^="${src}"]`)) return resolve();
+    const s=document.createElement('script');s.src=src+'?v=231';s.onload=resolve;s.onerror=reject;document.body.appendChild(s);
+  });
+  load('v23.js').then(()=>load('v231.js')).catch(()=>{});
+});
