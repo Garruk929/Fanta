@@ -1,4 +1,4 @@
-/* Fanta Live 2.5 — bootstrap UI, filtri ruolo e import Leghe semplificato */
+/* Fanta Live 2.6 — bootstrap UI, filtri ruolo e import Leghe diretto */
 (function(){
   'use strict';
   const $=id=>document.getElementById(id);
@@ -22,17 +22,17 @@
   }
   function loadStyle(href,key){if(document.querySelector(`link[data-${key}]`))return;const l=document.createElement('link');l.rel='stylesheet';l.href=href;l.dataset[key]='1';document.head.appendChild(l)}
   function loadScript(src,key){if(document.querySelector(`script[data-${key}]`))return;const s=document.createElement('script');s.src=src;s.async=false;s.dataset[key]='1';document.body.appendChild(s)}
-  function sync25Copy(){
-    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.5.0';
-    const note=document.querySelector('.repair-source-note');if(note)note.textContent='Da iPhone: copia l’indirizzo di qualsiasi pagina della tua lega e premi “Importa Lega”. Non serve trovare /squadre e non serve creare preferiti Safari.';
+  function sync26Copy(){
+    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.6.0';
+    const note=document.querySelector('.repair-source-note');if(note)note.textContent='Da iPhone: usa “Importa Lega”. Non devi trovare né copiare un link: il preferito Fanta Live Import legge direttamente la lega aperta in Safari o Chrome.';
   }
 
   setupRoleSync();
   loadStyle('v23.css?v=2.3.6','fantaV23');
   loadScript('v23.js?v=2.3.6','fantaV23');
-  loadStyle('v24.css?v=2.4.0','fantaV24');
-  loadScript('v24.js?v=2.4.0','fantaV24');
-  loadStyle('v25.css?v=2.5.0','fantaV25');
-  loadScript('v25.js?v=2.5.0','fantaV25');
-  sync25Copy();setTimeout(sync25Copy,900);
+  loadStyle('v24.css?v=2.6.0','fantaV24');
+  loadStyle('v25.css?v=2.6.0','fantaV25');
+  loadStyle('v26.css?v=2.6.0','fantaV26');
+  loadScript('v26.js?v=2.6.0','fantaV26');
+  sync26Copy();setTimeout(sync26Copy,900);setTimeout(sync26Copy,2600);
 })();
