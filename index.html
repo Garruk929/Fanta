@@ -1,1 +1,136 @@
-PLACEHOLDER
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#08111d">
+<meta name="description" content="Fanta Live: assistente gratuito per l'asta del Fantacalcio con budget dinamico, hard stop, infortuni e gestione rosa.">
+<link rel="manifest" href="manifest.webmanifest?v=108">
+<link rel="apple-touch-icon" href="assets/fanta-live-icon-v108.jpg">
+<meta property="og:title" content="Fanta Live — Assistente Asta">
+<meta property="og:description" content="Gestisci budget, tetti dinamici, rosa e alternative durante l'asta del Fantacalcio.">
+<meta property="og:image" content="https://garruk929.github.io/Fanta/assets/fanta-live-icon-v108.jpg">
+<link rel="icon" href="assets/fanta-live-icon-v108.jpg" type="image/jpeg">
+<link rel="stylesheet" href="style.css?v=1.0.8">
+<title>Fanta Live — Assistente Asta</title>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="brand">
+      <div class="brand-left">
+        <div class="logo"><img src="assets/fanta-live-icon-v108.jpg" alt="Fanta Live"></div>
+        <div><h1>Fanta Live</h1><div class="sub" id="headerSub"></div></div>
+      </div>
+      <div class="brand-actions">
+        <button class="icon" id="undoBtn" title="Annulla ultima operazione">↶</button>
+        <button class="icon" id="settingsBtn" title="Impostazioni">⚙️</button>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-card">
+        <span>Crediti rimasti</span>
+        <b id="credits">500</b>
+        <small id="delta">Strategia in equilibrio</small>
+      </div>
+      <div class="hero-card">
+        <span>Posti liberi</span>
+        <b id="slots">25</b>
+        <small>Riserva minima <i id="reserve">25</i> cr</small>
+      </div>
+    </div>
+
+    <div class="roles" id="roles"></div>
+
+    <div class="search">
+      <span>⌕</span>
+      <input id="search" placeholder="Cerca giocatore…" autocomplete="off" autocapitalize="off">
+      <button id="clear">×</button>
+    </div>
+
+    <div class="chips">
+      <button class="chip active" data-f="ALL">Tutti</button>
+      <button class="chip rolechip p" data-f="P">P</button>
+      <button class="chip rolechip d" data-f="D">D</button>
+      <button class="chip rolechip c" data-f="C">C</button>
+      <button class="chip rolechip a" data-f="A">A</button>
+      <button class="chip" data-f="INJ">🔴 Infortunati</button>
+      <button class="chip" data-f="AVAILABLE">Disponibili</button>
+      <button class="chip" data-f="OWNED">Miei</button>
+    </div>
+  </header>
+
+  <div class="statusline">
+    <span id="loadState">Caricamento listone…</span>
+    <span id="photoState"></span>
+  </div>
+
+  <div class="strategy" id="strategy"></div>
+
+  <div class="section"><h2>Giocatori</h2><small id="count"></small></div>
+  <div class="list" id="results"></div>
+
+  <div class="section rosterTitle"><h2>La mia rosa</h2><small id="rosterCount"></small></div>
+  <div class="roster" id="roster"></div>
+</div>
+
+<div class="overlay" id="playerModal"><div class="sheet">
+  <div class="grab"></div>
+  <div class="player-head">
+    <div class="head-main">
+      <div class="photo big" id="modalPhoto"></div>
+      <div class="head-copy"><h3 id="pn"></h3><div class="meta" id="pm"></div><div class="tags" id="ptags"></div></div>
+    </div>
+    <div class="cap"><b id="pc"></b><small>HARD STOP</small></div>
+  </div>
+  <div class="signal" id="signal"></div>
+  <div class="box profile" id="profile"></div>
+  <div class="box" id="health"></div>
+  <div class="box plan"><strong id="why1"></strong><br><span id="why2"></span></div>
+  <div class="buy"><input id="price" type="number" inputmode="numeric" min="1" placeholder="Prezzo"><button id="buyBtn">✓ Preso da me</button></div>
+  <button class="wide" id="otherBtn">Uscito / preso da un altro</button>
+  <div class="section compact"><h2>3 alternative</h2></div>
+  <div class="alts" id="alts"></div>
+  <button class="close" id="closePlayer">Chiudi</button>
+</div></div>
+
+<div class="overlay" id="settingsModal"><div class="config">
+  <div class="grab"></div>
+  <h3>Impostazioni</h3>
+  <p>Configura la tua asta. Se cambi budget o slot, l'asta corrente viene azzerata per evitare calcoli incoerenti.</p>
+  <div class="grid">
+    <label>Crediti<input id="cfgBudget" type="number" min="1"></label>
+    <label>Squadre<input id="cfgTeams" type="number" min="2"></label>
+    <label>Portieri<input id="cfgP" type="number" min="1"></label>
+    <label>Difensori<input id="cfgD" type="number" min="1"></label>
+    <label>Centrocampisti<input id="cfgC" type="number" min="1"></label>
+    <label>Attaccanti<input id="cfgA" type="number" min="1"></label>
+  </div>
+  <button class="savecfg" id="saveCfg">Salva configurazione</button>
+
+  <div class="settingsSection">
+    <h4>Dati asta</h4>
+    <button class="settingAction" id="backupBtn">Esporta backup</button>
+    <button class="settingAction" id="importBtn">Importa backup</button>
+    <input id="importFile" type="file" accept="application/json" hidden>
+    <button class="settingAction danger" id="resetBtn">Azzera asta</button>
+  </div>
+
+  <div class="settingsSection aboutBox">
+    <div class="aboutTitle"><img src="assets/fanta-live-icon-v108.jpg" alt="Fanta Live"><div><strong>Fanta Live</strong><span>Versione pubblica 1.0.8</span></div></div>
+    <p><strong>Privacy.</strong> Rosa, acquisti, budget e impostazioni sono salvati nel browser del dispositivo tramite memoria locale. Non è richiesto un account e Fanta Live non dispone di un proprio backend utenti.</p>
+    <p><strong>Fonti.</strong> Il listone di riferimento è mantenuto nel repository del progetto; per campioncini e informazioni sportive l'app può consultare fonti pubbliche esterne, tra cui Fantacalcio.it. Gli stati di infortunio sono indicativi e vanno sempre verificati prima dell'asta.</p>
+    <p><strong>Disclaimer.</strong> Progetto indipendente e non affiliato a Fantacalcio.it, Leghe Fantacalcio o alle società calcistiche. Nomi, marchi, immagini e dati di terzi appartengono ai rispettivi titolari.</p>
+    <a href="https://garruk929.github.io/Fanta/" target="_blank" rel="noopener">Sito pubblico ↗</a><br>
+    <a href="https://github.com/Garruk929/Fanta" target="_blank" rel="noopener">Codice sorgente e licenza ↗</a>
+  </div>
+
+  <button class="close" id="closeCfg">Chiudi</button>
+</div></div>
+
+<script src="app.js?v=1.0.8"></script>
+</body>
+</html>
