@@ -1,0 +1,14 @@
+/* Fanta Live 2.4.0 — import Leghe privata */
+.private-leghe-sheet{max-width:560px}
+.private-import-steps{display:grid;gap:7px;margin:10px 0 12px}
+.private-import-steps>div{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:start;border:1px solid var(--repairLine);border-radius:11px;background:rgba(255,255,255,.028);padding:8px 9px}
+.private-import-steps>div>b{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;background:rgba(180,108,255,.15);color:#e3bcff;font-size:9px}
+.private-import-steps>div>span{font-size:8.5px;line-height:1.4;color:#cab9d4}
+.private-primary{margin-top:3px!important;box-shadow:0 7px 20px rgba(164,94,228,.18)}
+.private-security{margin-top:9px;border:1px solid rgba(121,230,172,.13);border-radius:10px;background:rgba(121,230,172,.045);padding:8px 9px;color:#9fc7b1;font-size:7.7px;line-height:1.4}
+.private-security strong{color:#bde9cf}
+.private-fallback{margin-top:8px;border-top:1px solid var(--repairLine);padding-top:7px}
+.private-fallback summary{cursor:pointer;color:#9e8baa;font-size:8px;text-align:center}
+.private-import-toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom));z-index:200;max-width:min(90vw,520px);transform:translate(-50%,18px);opacity:0;pointer-events:none;border:1px solid rgba(121,230,172,.18);border-radius:12px;background:rgba(16,28,24,.96);color:#c8f4d9;padding:9px 12px;font-size:9px;font-weight:750;line-height:1.35;box-shadow:0 12px 40px rgba(0,0,0,.4);transition:.2s ease}
+.private-import-toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:520px){.private-import-steps{gap:6px;margin:8px 0 10px}.private-import-steps>div{padding:7px 8px}.private-import-steps>div>span{font-size:8px}.private-security{font-size:7.3px}}
