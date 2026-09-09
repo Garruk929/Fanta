@@ -7,23 +7,30 @@
 <meta name="apple-mobile-web-app-title" content="Fanta Live">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#08111d">
-<meta name="description" content="Fanta Live: assistente gratuito per l'asta del Fantacalcio con budget dinamico, hard stop, infortuni e gestione rosa.">
-<link rel="manifest" href="manifest.webmanifest?v=114">
-<link rel="apple-touch-icon" sizes="180x180" href="/Fanta/apple-touch-icon.png?v=114">
-<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/Fanta/apple-touch-icon-precomposed.png?v=114">
+<meta name="description" content="Fanta Live: assistente per asta e asta di riparazione del Fantacalcio con budget dinamico, svincolati e gestione crediti squadre.">
+<link rel="manifest" href="manifest.webmanifest?v=200">
+<link rel="apple-touch-icon" sizes="180x180" href="/Fanta/apple-touch-icon.png?v=200">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/Fanta/apple-touch-icon-precomposed.png?v=200">
 <meta property="og:title" content="Fanta Live — Assistente Asta">
-<meta property="og:description" content="Gestisci budget, tetti dinamici, rosa e alternative durante l'asta del Fantacalcio.">
-<meta property="og:image" content="https://garruk929.github.io/Fanta/apple-touch-icon.png?v=114">
-<link rel="icon" href="/Fanta/favicon.png?v=114" type="image/png">
-<link rel="stylesheet" href="style.css?v=1.0.8">
-<title>Fanta Live — Assistente Asta</title>
+<meta property="og:description" content="Gestisci asta iniziale e riparazione: budget, tetti dinamici, svincolati, crediti squadre e rosa.">
+<meta property="og:image" content="https://garruk929.github.io/Fanta/apple-touch-icon.png?v=200">
+<link rel="icon" href="/Fanta/favicon.png?v=200" type="image/png">
+<link rel="stylesheet" href="style.css?v=2.0.0">
+<link rel="stylesheet" href="repair.css?v=2.0.0">
+<title>Fanta Live — Asta & Riparazione</title>
 </head>
 <body>
+<nav class="mode-tabs" aria-label="Modalità">
+  <button class="mode-tab active" id="auctionTab" data-mode="auction">⚡ Asta</button>
+  <button class="mode-tab repair-tab" id="repairTab" data-mode="repair">🛠️ Riparazione</button>
+</nav>
+
+<section id="auctionPanel" class="mode-panel active">
 <div class="app">
   <header class="header">
     <div class="brand">
       <div class="brand-left">
-        <div class="logo"><img src="/Fanta/assets/fanta-live-icon.png?v=114" alt="Fanta Live"></div>
+        <div class="logo"><img src="/Fanta/assets/fanta-live-icon.png?v=200" alt="Fanta Live"></div>
         <div><h1>Fanta Live</h1><div class="sub" id="headerSub"></div></div>
       </div>
       <div class="brand-actions">
@@ -78,6 +85,63 @@
   <div class="section rosterTitle"><h2>La mia rosa</h2><small id="rosterCount"></small></div>
   <div class="roster" id="roster"></div>
 </div>
+</section>
+
+<section id="repairPanel" class="mode-panel" hidden>
+  <div class="repair-app">
+    <header class="repair-header">
+      <div class="repair-brand">
+        <div>
+          <span class="repair-kicker">ASTA DI RIPARAZIONE</span>
+          <h1>Mercato di riparazione</h1>
+          <p id="repairSubtitle">Importa gli svincolati della lega e i crediti delle squadre.</p>
+        </div>
+        <button class="repair-gear" id="repairSettingsBtn" title="Setup riparazione">⚙️</button>
+      </div>
+
+      <div class="repair-hero">
+        <div class="repair-card primary">
+          <span>I miei crediti</span>
+          <b id="repairMyCredits">—</b>
+          <small id="repairRank">Configura la tua squadra</small>
+        </div>
+        <div class="repair-card">
+          <span>Svincolati</span>
+          <b id="repairFreeCount">0</b>
+          <small id="repairImportState">Nessun file importato</small>
+        </div>
+      </div>
+
+      <div class="power-strip" id="repairPowerStrip"></div>
+
+      <div class="repair-actions">
+        <button id="importFreeBtn">📥 Importa svincolati</button>
+        <button id="importCreditsBtn">💰 Importa crediti</button>
+        <button id="repairSetupBtn">✏️ Squadre</button>
+        <input id="repairFreeFile" type="file" accept=".fclist,.json,.csv,.txt,application/json,text/csv,text/plain" hidden>
+        <input id="repairCreditsFile" type="file" accept=".json,.csv,.txt,.fclist,application/json,text/csv,text/plain" hidden>
+      </div>
+
+      <div class="repair-search">
+        <span>⌕</span>
+        <input id="repairSearch" placeholder="Cerca tra gli svincolati…" autocomplete="off" autocapitalize="off">
+        <button id="repairClear">×</button>
+      </div>
+      <div class="repair-chips" id="repairChips">
+        <button class="active" data-rf="ALL">Tutti</button>
+        <button data-rf="P">P</button><button data-rf="D">D</button><button data-rf="C">C</button><button data-rf="A">A</button>
+        <button data-rf="AVAILABLE">Disponibili</button>
+      </div>
+    </header>
+
+    <div class="repair-summary" id="repairSummary"></div>
+    <div class="repair-section"><h2>Svincolati</h2><small id="repairCount"></small></div>
+    <div class="repair-list" id="repairResults"></div>
+
+    <div class="repair-section"><h2>Movimenti riparazione</h2><small id="repairTxCount"></small></div>
+    <div class="repair-transactions" id="repairTransactions"></div>
+  </div>
+</section>
 
 <div class="overlay" id="playerModal"><div class="sheet">
   <div class="grab"></div>
@@ -122,9 +186,9 @@
   </div>
 
   <div class="settingsSection aboutBox">
-    <div class="aboutTitle"><img src="/Fanta/assets/fanta-live-icon.png?v=114" alt="Fanta Live"><div><strong>Fanta Live</strong><span>Versione pubblica 1.0.14</span></div></div>
-    <p><strong>Privacy.</strong> Rosa, acquisti, budget e impostazioni sono salvati nel browser del dispositivo tramite memoria locale. Non è richiesto un account e Fanta Live non dispone di un proprio backend utenti.</p>
-    <p><strong>Fonti.</strong> Il listone di riferimento è mantenuto nel repository del progetto; per i campioncini l'app usa una mappatura pubblica aggiornata degli ID Fantacalcio con immagini servite dal CDN Fantacalcio.it e più fallback automatici. Gli stati di infortunio sono indicativi e vanno sempre verificati prima dell'asta.</p>
+    <div class="aboutTitle"><img src="/Fanta/assets/fanta-live-icon.png?v=200" alt="Fanta Live"><div><strong>Fanta Live</strong><span>Versione pubblica 2.0.0</span></div></div>
+    <p><strong>Privacy.</strong> Rosa, acquisti, budget, riparazione e impostazioni sono salvati nel browser del dispositivo tramite memoria locale. Non è richiesto un account.</p>
+    <p><strong>Fonti.</strong> Il listone di riferimento è mantenuto nel repository; per i campioncini l'app usa una mappatura pubblica aggiornata degli ID Fantacalcio con più fallback automatici. Gli stati di infortunio sono indicativi.</p>
     <p><strong>Disclaimer.</strong> Progetto indipendente e non affiliato a Fantacalcio.it, Leghe Fantacalcio o alle società calcistiche. Nomi, marchi, immagini e dati di terzi appartengono ai rispettivi titolari.</p>
     <a href="https://garruk929.github.io/Fanta/" target="_blank" rel="noopener">Sito pubblico ↗</a><br>
     <a href="https://github.com/Garruk929/Fanta" target="_blank" rel="noopener">Codice sorgente e licenza ↗</a>
@@ -133,7 +197,37 @@
   <button class="close" id="closeCfg">Chiudi</button>
 </div></div>
 
-<script src="app.js?v=1.0.14"></script>
-<script src="photo-fix.js?v=1.0.14"></script>
+<div class="overlay" id="repairPlayerModal"><div class="repair-sheet">
+  <div class="grab"></div>
+  <div class="repair-player-head">
+    <div class="repair-photo photo big" id="repairModalPhoto"></div>
+    <div class="repair-player-copy">
+      <h3 id="repairPlayerName"></h3>
+      <div class="meta" id="repairPlayerMeta"></div>
+      <div class="tags" id="repairPlayerTags"></div>
+    </div>
+    <div class="repair-cap"><b id="repairCap"></b><small>TETTO CONSIGLIATO</small></div>
+  </div>
+  <div class="repair-player-info" id="repairPlayerInfo"></div>
+  <label class="repair-field">Squadra che acquista<select id="repairBuyer"></select></label>
+  <label class="repair-field">Prezzo<input id="repairPrice" type="number" inputmode="numeric" min="1" placeholder="Crediti"></label>
+  <button class="repair-confirm" id="repairBuyBtn">Registra acquisto</button>
+  <button class="repair-close" id="repairClosePlayer">Chiudi</button>
+</div></div>
+
+<div class="overlay" id="repairSetupModal"><div class="repair-sheet setup-sheet">
+  <div class="grab"></div>
+  <h3>Squadre e crediti</h3>
+  <p class="repair-help">Imposta la tua squadra e i crediti residui. Se il file della lega contiene questi dati verranno compilati automaticamente.</p>
+  <div id="repairTeamsEditor"></div>
+  <button class="repair-add-team" id="repairAddTeam">+ Aggiungi squadra</button>
+  <button class="repair-confirm" id="repairSaveTeams">Salva squadre</button>
+  <button class="repair-danger" id="repairReset">Azzera solo riparazione</button>
+  <button class="repair-close" id="repairCloseSetup">Chiudi</button>
+</div></div>
+
+<script src="app.js?v=2.0.0"></script>
+<script src="photo-fix.js?v=2.0.0"></script>
+<script src="repair.js?v=2.0.0"></script>
 </body>
 </html>
