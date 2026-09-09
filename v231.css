@@ -1,4 +1,4 @@
-/* Fanta Live 2.3.3 — testata compatta, riparazione senza vuoti, ricerca coerente */
+/* Fanta Live 2.3.4 — testata compatta, riparazione senza vuoti, ricerca coerente */
 
 /* La safe-area viene gestita una sola volta dalla testata globale. */
 #auctionPanel .app{padding-top:5px!important}
@@ -21,7 +21,7 @@
 }
 .app-shell-controls .mode-tabs{
   position:static!important;
-  width:154px!important;
+  width:166px!important;
   margin:0!important;
   padding:2px!important;
   flex:none!important;
@@ -29,8 +29,16 @@
 .app-shell-controls .mode-tab{
   height:27px!important;
   min-height:27px!important;
-  padding:3px 7px!important;
+  padding:3px 6px!important;
   font-size:8px!important;
+  display:flex!important;
+  flex-direction:row!important;
+  flex-wrap:nowrap!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:3px!important;
+  white-space:nowrap!important;
+  line-height:1!important;
 }
 .app-shell-controls .brand-actions{
   display:flex!important;
@@ -115,8 +123,8 @@ body.repair-mode .app-shell-head{margin-bottom:0!important}
   #auctionPanel .app{padding-top:4px!important}
   .app-shell-head{padding-bottom:4px!important}
   .app-shell-controls{padding-left:42px!important;margin-top:3px!important;gap:5px!important}
-  .app-shell-controls .mode-tabs{width:148px!important}
-  .app-shell-controls .mode-tab{height:25px!important;min-height:25px!important;font-size:7.7px!important;padding:2px 6px!important}
+  .app-shell-controls .mode-tabs{width:160px!important}
+  .app-shell-controls .mode-tab{height:25px!important;min-height:25px!important;font-size:7.7px!important;padding:2px 5px!important;gap:3px!important;white-space:nowrap!important}
   .app-shell-controls .brand-actions .icon{width:25px!important;height:25px!important;font-size:11px!important;border-radius:8px!important}
   .repair-app{padding-top:2px!important}
   .repair-header{padding-top:1px!important}
