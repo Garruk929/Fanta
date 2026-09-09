@@ -4,7 +4,7 @@
   <img src="assets/fanta-live-icon.png" alt="Fanta Live" width="260">
 </p>
 
-**Fanta Live** è una web app gratuita pensata per accompagnarti sia durante l'asta iniziale del Fantacalcio sia durante l'**asta di riparazione**. Cerca i giocatori, registra gli acquisti e lascia che l'app ricalcoli in tempo reale budget, hard stop, potere d'acquisto e correzioni per reparto.
+**Fanta Live** è una web app gratuita pensata per accompagnarti durante l'asta del Fantacalcio e durante l'**asta di riparazione**: cerca i giocatori, registra gli acquisti e lascia che l'app ricalcoli in tempo reale budget, hard stop, crediti residui e potere d'acquisto della lega.
 
 👉 **App pubblica:** https://garruk929.github.io/Fanta/
 
@@ -14,7 +14,18 @@
   <img src="docs/preview.svg" alt="Anteprima Fanta Live" width="380">
 </p>
 
-## Modalità Asta
+## Due modalità
+
+La navigazione è divisa in due ambienti separati tramite la tab bar in basso:
+
+- **⚡ Asta** — asta iniziale, budget dinamico e costruzione rosa
+- **🛠️ Riparazione** — svincolati, crediti delle squadre, acquisti e potere d'acquisto
+
+I dati delle due modalità sono salvati separatamente: azzerare la riparazione non cancella l'asta iniziale.
+
+## Funzioni principali
+
+### Asta
 
 - configurazione iniziale di **crediti, numero squadre e slot P/D/C/A**
 - ricerca rapida del listone
@@ -24,54 +35,40 @@
   - quanti crediti togliere o aggiungere a P, D, C e A
   - budget consigliato residuo per ogni reparto
 - gestione **Preso da me / Preso da un altro**
-- rosa ordinata per ruolo e, all'interno del ruolo, per prezzo pagato
+- rosa ordinata per ruolo e prezzo pagato
 - indicazione di rigoristi, indisponibilità e profilo tecnico
 - alternative immediate per ruolo
 - undo dell'ultima operazione
 - backup/import dell'asta dalle Impostazioni
 
-## Modalità Riparazione
+### Riparazione
 
-La modalità **Riparazione** è separata dall'asta iniziale, usa un tema grafico dedicato e salva i propri dati in modo indipendente.
+- interfaccia dedicata con background viola/bordeaux
+- colori ruolo coerenti con l'asta principale:
+  - **P** giallo
+  - **D** verde
+  - **C** blu
+  - **A** rosso
+- cruscotto P/D/C/A con conteggio degli svincolati disponibili
+- import di file `.fclist`, JSON, CSV e TXT
+- import di **squadre + crediti residui**
+- supporto a snapshot JSON della risposta squadre di Leghe Fantacalcio
+- calcolo automatico degli svincolati partendo dalle rose già occupate
+- classifica live del potere d'acquisto delle squadre
+- tetto consigliato per ogni svincolato
+- registrazione acquisto con squadra e prezzo
+- aggiornamento automatico dei crediti residui
+- storico movimenti con undo
 
-Funzioni principali:
-
-- import del file degli **svincolati** della lega
-- supporto ai file **`.fclist`**, JSON, CSV e TXT
-- riconoscimento degli ID giocatore contenuti nei file `.fclist`
-- import automatico di **nomi squadre e crediti residui** quando presenti nel file
-- inserimento/modifica manuale dei crediti se il file non li contiene
-- scelta della propria squadra
-- classifica live del **potere d'acquisto** delle squadre
-- confronto dei propri crediti con la media della lega
-- ricerca e filtri P/D/C/A sugli svincolati importati
-- tetto consigliato sul giocatore corrente
-- registrazione dell'acquisto indicando **squadra e prezzo**
-- aggiornamento automatico dei crediti della squadra che compra
-- storico movimenti con annullamento
-- reset della sola riparazione senza toccare l'asta principale
-
-> I formati di esportazione possono cambiare tra piattaforme e leghe. Se un file non viene riconosciuto, apri una Issue allegando un esempio anonimizzato del formato.
+Dettagli tecnici sull'import: [docs/leghe-import.md](docs/leghe-import.md).
 
 ## Come usarla
 
-### Asta iniziale
-
 1. Apri **https://garruk929.github.io/Fanta/**.
-2. Seleziona **Asta**.
-3. Imposta budget, numero di squadre e numero di giocatori per ruolo.
-4. Durante l'asta cerca un giocatore e apri la sua scheda.
-5. Inserisci il prezzo finale e scegli **Preso da me**, oppure segna **Uscito / preso da un altro**.
-6. Controlla la sezione **Strategia dinamica**.
-
-### Asta di riparazione
-
-1. Seleziona il tab **Riparazione**.
-2. Premi **Importa svincolati** e carica il file esportato dalla tua lega.
-3. Se hai un file con le disponibilità economiche, usa **Importa crediti**. In alternativa apri **Squadre** e inseriscili a mano.
-4. Contrassegna la tua squadra con la stella.
-5. Quando un giocatore viene acquistato, aprilo, scegli la squadra acquirente e inserisci il prezzo.
-6. Fanta Live scala automaticamente i crediti e aggiorna il ranking economico.
+2. Scegli **Asta** o **Riparazione** dalla barra in basso.
+3. In Asta imposta budget, numero di squadre e slot per ruolo.
+4. In Riparazione importa svincolati e dati della lega oppure inserisci manualmente le squadre.
+5. Durante l'asta apri un giocatore, registra l'acquisto e lascia che Fanta Live aggiorni i calcoli.
 
 ### Installazione su iPhone/iPad
 
@@ -85,7 +82,7 @@ Il motore dell'asta iniziale parte da una distribuzione del budget per ruolo e m
 
 Se spendi più del previsto, il deficit viene distribuito sui reparti ancora aperti; se risparmi, il margine viene redistribuito. L'app mostra sia la correzione complessiva per reparto sia l'effetto sul prossimo hard stop.
 
-Nella modalità Riparazione il tetto tiene invece conto soprattutto dei **crediti residui della propria squadra** e del confronto con la disponibilità economica degli avversari.
+La modalità Riparazione usa invece i crediti residui reali della lega per confrontare il tuo potere d'acquisto con quello degli avversari.
 
 > È uno strumento di supporto: non sostituisce le tue valutazioni, le regole specifiche della lega o le notizie dell'ultimo minuto.
 
@@ -93,7 +90,9 @@ Nella modalità Riparazione il tetto tiene invece conto soprattutto dei **credit
 
 Il listone utilizzato dall'app è mantenuto nel file `players.csv` del repository. All'apertura Fanta Live prova a leggere la versione più recente e invalida la cache al cambio di stagione.
 
-Per associare gli ID presenti nei file `.fclist` e recuperare i campioncini vengono consultate fonti pubbliche esterne. Informazioni come infortuni, gerarchie e rigoristi possono cambiare rapidamente e vanno considerate indicative.
+Per campioncini e alcune informazioni sportive possono essere consultate fonti pubbliche esterne, tra cui **Fantacalcio.it**. Informazioni come infortuni, gerarchie e rigoristi possono cambiare rapidamente e vanno considerate indicative.
+
+L'import Leghe è **file-based e read-only**: Fanta Live non effettua login su Leghe Fantacalcio e non richiede né salva Bearer token o altre credenziali.
 
 Fanta Live è un progetto indipendente e **non è affiliato** a Fantacalcio.it, Leghe Fantacalcio, Serie A o alle società calcistiche.
 
@@ -101,12 +100,13 @@ Fanta Live è un progetto indipendente e **non è affiliato** a Fantacalcio.it, 
 
 - nessun account obbligatorio
 - nessun database utenti di Fanta Live
-- rosa, prezzi, budget, dati di riparazione e impostazioni vengono salvati nel `localStorage` del browser
-- i file importati vengono elaborati nel browser; Fanta Live non dispone di un backend per archiviarli
-- il backup dell'asta è un file JSON esportato volontariamente dall'utente
+- rosa, prezzi, budget e impostazioni vengono salvati nel `localStorage` del browser
+- i dati della Riparazione usano una chiave locale separata
+- il backup è un file JSON esportato volontariamente dall'utente
+- eventuali file importati vengono letti localmente dal browser
 - richieste verso fonti esterne possono trasmettere a tali servizi i normali dati tecnici di una richiesta web, come IP e user-agent
 
-Per eliminare i dati dell'asta principale usa **Impostazioni → Azzera asta**. Per eliminare solo la riparazione usa **Riparazione → Squadre → Azzera solo riparazione**.
+Per eliminare i dati dell'asta basta usare **Impostazioni → Azzera asta**; per la riparazione usa **Squadre → Azzera solo riparazione**.
 
 ## Struttura del progetto
 
@@ -118,6 +118,7 @@ Per eliminare i dati dell'asta principale usa **Impostazioni → Azzera asta**. 
 ├── photo-fix.js
 ├── style.css
 ├── repair.css
+├── v2.css
 ├── players.csv
 ├── manifest.webmanifest
 ├── sw.js
@@ -126,13 +127,14 @@ Per eliminare i dati dell'asta principale usa **Impostazioni → Azzera asta**. 
 ├── assets/
 │   └── fanta-live-icon.png
 ├── docs/
-│   └── preview.svg
+│   ├── preview.svg
+│   └── leghe-import.md
 └── LICENSE
 ```
 
 ## Contribuire
 
-Bug, correzioni del listone, nuovi formati di import e proposte di miglioramento sono benvenuti tramite **Issue** o **Pull Request** su GitHub.
+Bug, correzioni del listone e proposte di miglioramento sono benvenuti tramite **Issue** o **Pull Request** su GitHub.
 
 Se segnali un dato sportivo errato, indica possibilmente una fonte e la data di verifica.
 
@@ -144,4 +146,4 @@ La licenza MIT non concede diritti su nomi, marchi, immagini, loghi o dati appar
 
 ---
 
-**Fanta Live 2.0.0** · Asta. Riparazione. Bid. Build. Win.
+**Fanta Live 2.1.0** · Bid. Build. Win.
