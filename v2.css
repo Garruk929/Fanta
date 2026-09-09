@@ -1,0 +1,7 @@
+/* Piccoli override di layout per Fanta Live 2.0 */
+#auctionPanel .header{top:55px}
+.repair-photo.p{--role:var(--P)}
+.repair-photo.d{--role:var(--D)}
+.repair-photo.c{--role:var(--C)}
+.repair-photo.a{--role:var(--A)}
+@media(max-width:520px){#auctionPanel .header{top:55px}}
