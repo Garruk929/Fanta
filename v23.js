@@ -1,4 +1,4 @@
-/* Fanta Live 2.3 — pulizia UI riparazione e configurazione squadre */
+/* Fanta Live 2.3.2 — pulizia UI riparazione e testata compatta */
 (function(){
   'use strict';
   const $=id=>document.getElementById(id);
@@ -18,7 +18,7 @@
   function leagueCount(state=readRepair()){return knownLeague(state)?(Number(state.leagueSize)||state.teams.length):0}
   function season(){const d=new Date(),y=d.getFullYear(),m=d.getMonth()+1;return m>=7?`${y}/${String(y+1).slice(2)}`:`${y-1}/${String(y).slice(2)}`}
 
-  function syncVersion(){const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.3.0'}
+  function syncVersion(){const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.3.2'}
   function syncGlobalSub(){
     const sub=$('headerSub');if(!sub)return;
     if(document.body.classList.contains('repair-mode')){
@@ -30,11 +30,21 @@
   }
 
   function moveSwitchUnderTitle(){
-    const nav=document.querySelector('.mode-tabs'),brand=document.querySelector('#auctionPanel .brand-left');if(!nav||!brand||document.querySelector('.app-shell-head'))return;
-    const shell=document.createElement('div');shell.className='app-shell-head';
-    const row=document.createElement('div');row.className='app-shell-brand';row.appendChild(brand);shell.appendChild(row);shell.appendChild(nav);
-    document.body.insertBefore(shell,document.body.firstChild);
-    nav.querySelectorAll('.mode-tab').forEach(b=>b.addEventListener('click',()=>setTimeout(syncGlobalSub,0)));
+    const nav=document.querySelector('.mode-tabs'),brand=document.querySelector('#auctionPanel .brand-left'),actions=document.querySelector('#auctionPanel .brand-actions');
+    if(!nav||!brand)return;
+    let shell=document.querySelector('.app-shell-head');
+    if(!shell){
+      shell=document.createElement('div');shell.className='app-shell-head';
+      const row=document.createElement('div');row.className='app-shell-brand';row.appendChild(brand);shell.appendChild(row);
+      const controls=document.createElement('div');controls.className='app-shell-controls';controls.appendChild(nav);if(actions)controls.appendChild(actions);shell.appendChild(controls);
+      document.body.insertBefore(shell,document.body.firstChild);
+    }else{
+      let controls=shell.querySelector('.app-shell-controls');
+      if(!controls){controls=document.createElement('div');controls.className='app-shell-controls';shell.appendChild(controls)}
+      if(nav.parentElement!==controls)controls.appendChild(nav);
+      if(actions&&actions.parentElement!==controls)controls.appendChild(actions);
+    }
+    nav.querySelectorAll('.mode-tab').forEach(b=>{if(!b.dataset.shellBound){b.dataset.shellBound='1';b.addEventListener('click',()=>setTimeout(syncGlobalSub,0))}});
     syncGlobalSub();
   }
 
@@ -82,7 +92,7 @@
     ['repairSetupBtn','repairSettingsBtn'].forEach(id=>$(id)?.addEventListener('click',()=>setTimeout(syncSetupModal,0)));
     const importBtn=$('importCreditsBtn');if(importBtn)importBtn.addEventListener('click',()=>setTimeout(addLegheLinkHelp,0));
     document.addEventListener('click',e=>{if(e.target?.id==='importCreditsBtn')setTimeout(addLegheLinkHelp,0)});
-    setTimeout(()=>{syncRepairTeamsUI();syncSetupModal();addLegheLinkHelp();syncVersion()},250);
+    setTimeout(()=>{syncRepairTeamsUI();syncSetupModal();addLegheLinkHelp();syncVersion();moveSwitchUnderTitle()},250);
     setTimeout(syncRepairTeamsUI,1200);
   }
 
