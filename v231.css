@@ -1,0 +1,46 @@
+/* Fanta Live 2.3.1 — elimina lo spazio vuoto sotto la testata */
+
+/* La safe-area viene gestita una sola volta dalla testata globale. */
+#auctionPanel .app{
+  padding-top:6px!important;
+}
+
+/* Dopo aver spostato logo/titolo e azioni nella testata globale,
+   la vecchia riga brand non deve più occupare altezza. */
+#auctionPanel .header .brand{
+  display:none!important;
+  margin:0!important;
+  min-height:0!important;
+}
+#auctionPanel .header{
+  padding-top:0!important;
+  margin-top:0!important;
+}
+
+/* Undo e impostazioni stanno sulla stessa riga del nome dell'app. */
+.app-shell-brand .brand-actions{
+  display:flex!important;
+  align-items:center;
+  gap:5px;
+  margin-left:auto;
+  flex:none;
+}
+.app-shell-brand .brand-actions .icon{
+  width:31px!important;
+  height:31px!important;
+  border-radius:10px!important;
+  font-size:14px!important;
+}
+
+/* In Riparazione usiamo il suo ingranaggio dedicato, evitando controlli Asta fuori contesto. */
+body.repair-mode .app-shell-brand .brand-actions{
+  display:none!important;
+}
+
+/* Il contenuto utile parte subito sotto lo switch. */
+#auctionPanel .hero{margin-top:0!important}
+
+@media(max-width:520px){
+  #auctionPanel .app{padding-top:5px!important}
+  .app-shell-brand .brand-actions .icon{width:29px!important;height:29px!important;font-size:13px!important}
+}
