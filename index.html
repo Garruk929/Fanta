@@ -8,16 +8,16 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#08111d">
 <meta name="description" content="Fanta Live: assistente per asta e asta di riparazione del Fantacalcio con budget dinamico, svincolati e gestione crediti squadre.">
-<link rel="manifest" href="manifest.webmanifest?v=200">
-<link rel="apple-touch-icon" sizes="180x180" href="/Fanta/apple-touch-icon.png?v=200">
-<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/Fanta/apple-touch-icon-precomposed.png?v=200">
+<link rel="manifest" href="manifest.webmanifest?v=210">
+<link rel="apple-touch-icon" sizes="180x180" href="/Fanta/apple-touch-icon.png?v=210">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="/Fanta/apple-touch-icon-precomposed.png?v=210">
 <meta property="og:title" content="Fanta Live — Assistente Asta">
 <meta property="og:description" content="Gestisci asta iniziale e riparazione: budget, tetti dinamici, svincolati, crediti squadre e rosa.">
-<meta property="og:image" content="https://garruk929.github.io/Fanta/apple-touch-icon.png?v=200">
-<link rel="icon" href="/Fanta/favicon.png?v=200" type="image/png">
-<link rel="stylesheet" href="style.css?v=2.0.0">
-<link rel="stylesheet" href="repair.css?v=2.0.0">
-<link rel="stylesheet" href="v2.css?v=2.0.0">
+<meta property="og:image" content="https://garruk929.github.io/Fanta/apple-touch-icon.png?v=210">
+<link rel="icon" href="/Fanta/favicon.png?v=210" type="image/png">
+<link rel="stylesheet" href="style.css?v=2.1.0">
+<link rel="stylesheet" href="repair.css?v=2.1.0">
+<link rel="stylesheet" href="v2.css?v=2.1.0">
 <title>Fanta Live — Asta & Riparazione</title>
 </head>
 <body>
@@ -31,7 +31,7 @@
   <header class="header">
     <div class="brand">
       <div class="brand-left">
-        <div class="logo"><img src="/Fanta/assets/fanta-live-icon.png?v=200" alt="Fanta Live"></div>
+        <div class="logo"><img src="/Fanta/assets/fanta-live-icon.png?v=210" alt="Fanta Live"></div>
         <div><h1>Fanta Live</h1><div class="sub" id="headerSub"></div></div>
       </div>
       <div class="brand-actions">
@@ -95,7 +95,7 @@
         <div>
           <span class="repair-kicker">ASTA DI RIPARAZIONE</span>
           <h1>Mercato di riparazione</h1>
-          <p id="repairSubtitle">Importa gli svincolati della lega e i crediti delle squadre.</p>
+          <p id="repairSubtitle">Svincolati, crediti e potere d'acquisto della lega in un'unica vista.</p>
         </div>
         <button class="repair-gear" id="repairSettingsBtn" title="Setup riparazione">⚙️</button>
       </div>
@@ -114,14 +114,16 @@
       </div>
 
       <div class="power-strip" id="repairPowerStrip"></div>
+      <div class="repair-role-stats" id="repairRoleStats"></div>
 
       <div class="repair-actions">
-        <button id="importFreeBtn">📥 Importa svincolati</button>
-        <button id="importCreditsBtn">💰 Importa crediti</button>
+        <button id="importFreeBtn">📥 Svincolati</button>
+        <button id="importCreditsBtn">📲 Dati Leghe</button>
         <button id="repairSetupBtn">✏️ Squadre</button>
         <input id="repairFreeFile" type="file" accept=".fclist,.json,.csv,.txt,application/json,text/csv,text/plain" hidden>
         <input id="repairCreditsFile" type="file" accept=".json,.csv,.txt,.fclist,application/json,text/csv,text/plain" hidden>
       </div>
+      <div class="repair-source-note">“Dati Leghe” accetta file con squadre/crediti e anche snapshot JSON della risposta squadre di Leghe Fantacalcio. Il token di accesso non viene mai richiesto né salvato da Fanta Live.</div>
 
       <div class="repair-search">
         <span>⌕</span>
@@ -187,9 +189,10 @@
   </div>
 
   <div class="settingsSection aboutBox">
-    <div class="aboutTitle"><img src="/Fanta/assets/fanta-live-icon.png?v=200" alt="Fanta Live"><div><strong>Fanta Live</strong><span>Versione pubblica 2.0.0</span></div></div>
+    <div class="aboutTitle"><img src="/Fanta/assets/fanta-live-icon.png?v=210" alt="Fanta Live"><div><strong>Fanta Live</strong><span>Versione pubblica 2.1.0</span></div></div>
     <p><strong>Privacy.</strong> Rosa, acquisti, budget, riparazione e impostazioni sono salvati nel browser del dispositivo tramite memoria locale. Non è richiesto un account.</p>
     <p><strong>Fonti.</strong> Il listone di riferimento è mantenuto nel repository; per i campioncini l'app usa una mappatura pubblica aggiornata degli ID Fantacalcio con più fallback automatici. Gli stati di infortunio sono indicativi.</p>
+    <p><strong>Import Leghe.</strong> Fanta Live può leggere file esportati e snapshot JSON con squadre, crediti residui e rose. Non richiede, memorizza o invia credenziali Fantacalcio.</p>
     <p><strong>Disclaimer.</strong> Progetto indipendente e non affiliato a Fantacalcio.it, Leghe Fantacalcio o alle società calcistiche. Nomi, marchi, immagini e dati di terzi appartengono ai rispettivi titolari.</p>
     <a href="https://garruk929.github.io/Fanta/" target="_blank" rel="noopener">Sito pubblico ↗</a><br>
     <a href="https://github.com/Garruk929/Fanta" target="_blank" rel="noopener">Codice sorgente e licenza ↗</a>
@@ -227,8 +230,8 @@
   <button class="repair-close" id="repairCloseSetup">Chiudi</button>
 </div></div>
 
-<script src="app.js?v=2.0.0"></script>
-<script src="photo-fix.js?v=2.0.0"></script>
-<script src="repair.js?v=2.0.0"></script>
+<script src="app.js?v=2.1.0"></script>
+<script src="photo-fix.js?v=2.1.0"></script>
+<script src="repair.js?v=2.1.0"></script>
 </body>
 </html>
