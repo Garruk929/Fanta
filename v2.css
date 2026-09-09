@@ -7,7 +7,7 @@
   left:50%;
   bottom:0;
   transform:translateX(-50%);
-  z-index:140;
+  z-index:50;
   width:min(calc(100% - 20px),520px);
   max-width:none;
   display:grid;
