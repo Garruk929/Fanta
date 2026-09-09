@@ -18,6 +18,7 @@
   function leagueCount(state=readRepair()){return knownLeague(state)?(Number(state.leagueSize)||state.teams.length):0}
   function season(){const d=new Date(),y=d.getFullYear(),m=d.getMonth()+1;return m>=7?`${y}/${String(y+1).slice(2)}`:`${y-1}/${String(y).slice(2)}`}
 
+  function syncVersion(){const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.3.0'}
   function syncGlobalSub(){
     const sub=$('headerSub');if(!sub)return;
     if(document.body.classList.contains('repair-mode')){
@@ -54,7 +55,7 @@
     box.innerHTML='<label><span>Numero squadre della lega</span><input id="leagueSizeInput" type="number" inputmode="numeric" min="2" max="30" placeholder="es. 8"></label><button id="applyLeagueSize">Crea / aggiorna squadre</button><div class="league-size-hint">Finché questo dato non è impostato, Fanta Live non mostra squadre o crediti fittizi.</div>';
     editor.parentNode.insertBefore(box,editor);
     $('applyLeagueSize').onclick=()=>{
-      const n=Math.max(2,Math.min(30,Math.round(Number($('leagueSizeInput').value)||0)));if(!n)return;
+      const raw=Math.round(Number($('leagueSizeInput').value));if(!Number.isFinite(raw)||raw<2)return alert('Inserisci il numero di squadre della lega.');const n=Math.min(30,raw);
       const state=readRepair(),old=Array.isArray(state.teams)?state.teams:[];
       state.leagueSize=n;state.teams=Array.from({length:n},(_,i)=>old[i]?{...old[i],id:old[i].id||`t${i+1}`}:{id:`t${i+1}`,name:i===0?'La mia squadra':`Squadra ${i+1}`,credits:0,mine:i===0});
       if(!state.teams.some(t=>t.mine)&&state.teams[0])state.teams[0].mine=true;
@@ -81,9 +82,9 @@
     ['repairSetupBtn','repairSettingsBtn'].forEach(id=>$(id)?.addEventListener('click',()=>setTimeout(syncSetupModal,0)));
     const importBtn=$('importCreditsBtn');if(importBtn)importBtn.addEventListener('click',()=>setTimeout(addLegheLinkHelp,0));
     document.addEventListener('click',e=>{if(e.target?.id==='importCreditsBtn')setTimeout(addLegheLinkHelp,0)});
-    setTimeout(()=>{syncRepairTeamsUI();syncSetupModal();addLegheLinkHelp()},250);
+    setTimeout(()=>{syncRepairTeamsUI();syncSetupModal();addLegheLinkHelp();syncVersion()},250);
     setTimeout(syncRepairTeamsUI,1200);
   }
 
-  moveSwitchUnderTitle();watch();
+  moveSwitchUnderTitle();watch();syncVersion();
 })();
