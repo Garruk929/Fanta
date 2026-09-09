@@ -1,4 +1,4 @@
-/* Fanta Live 2.0 — asta di riparazione */
+/* Fanta Live 2.1 — asta di riparazione */
 (function(){
   'use strict';
   const KEY='fantaRepairV1';
@@ -10,10 +10,11 @@
   const escapeHtml=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
   const roleOf=v=>{const s=clean(v).toUpperCase();if(['P','D','C','A'].includes(s))return s;return ({POR:'P',PORTIERE:'P',GK:'P',DIF:'D',DIFENSORE:'D',DEF:'D',CEN:'C',CENTROCAMPISTA:'C',MID:'C',ATT:'A',ATTACCANTE:'A',FWD:'A'})[s]||''};
   const pkey=p=>`${norm(p.name)}|${p.role}`;
+  const ROLE_LABEL={P:'Portieri',D:'Difensori',C:'Centrocampisti',A:'Attaccanti'};
 
   function initialState(){
     return {
-      version:2,
+      version:3,
       sourceName:'',
       freeAgents:[],
       teams:Array.from({length:8},(_,i)=>({id:'t'+(i+1),name:i===0?'La mia squadra':`Squadra ${i+1}`,credits:0,mine:i===0})),
@@ -107,18 +108,37 @@
     $r('repairPowerStrip').innerHTML=ranking().map((t,i)=>`<div class="power-team ${t.mine?'mine':''}"><b>${escapeHtml(t.name)}</b><span>${Math.max(0,+t.credits||0)}</span><small>${t.mine?'LA MIA SQUADRA':`${i+1}ª disponibilità`}</small></div>`).join('');
   }
 
+  function setFilter(filter){
+    repair.filter=filter;
+    document.querySelectorAll('#repairChips [data-rf]').forEach(x=>x.classList.toggle('active',x.dataset.rf===filter));
+    save();
+  }
+
+  function renderRoleStats(){
+    const all=freePlayers();
+    $r('repairRoleStats').innerHTML=['P','D','C','A'].map(role=>{
+      const total=all.filter(p=>p.role===role).length;
+      const open=all.filter(p=>p.role===role&&!soldTx(p)).length;
+      return `<button class="repair-role-stat ${role.toLowerCase()} ${repair.filter===role?'active':''}" data-role-stat="${role}"><b>${role}</b><span>${open}</span><small>${ROLE_LABEL[role]} · ${total} tot</small></button>`;
+    }).join('');
+    document.querySelectorAll('[data-role-stat]').forEach(b=>b.onclick=()=>setFilter(b.dataset.roleStat));
+  }
+
   function render(){
     if(!$r('repairPanel'))return;
     const me=myTeam(),rank=me?ranking().findIndex(t=>t.id===me.id)+1:0;
+    const openCount=freePlayers().filter(p=>!soldTx(p)).length;
     $r('repairMyCredits').textContent=me?Math.max(0,+me.credits||0):'—';
     $r('repairRank').textContent=me?`${rank}ª disponibilità su ${repair.teams.length}`:'Configura la tua squadra';
-    $r('repairFreeCount').textContent=repair.freeAgents.length;
-    $r('repairImportState').textContent=repair.sourceName?`Da ${repair.sourceName}`:'Nessun file importato';
+    $r('repairFreeCount').textContent=openCount;
+    $r('repairImportState').textContent=repair.sourceName?`${repair.freeAgents.length} importati · ${repair.sourceName}`:'Nessun file importato';
     renderPower();
+    renderRoleStats();
     $r('repairSummary').innerHTML=summaryHtml();
+    document.querySelectorAll('#repairChips [data-rf]').forEach(x=>x.classList.toggle('active',x.dataset.rf===repair.filter));
 
     const list=filtered();
-    $r('repairCount').textContent=`${list.length} mostrati · ${repair.freeAgents.length} importati`;
+    $r('repairCount').textContent=`${list.length} mostrati · ${openCount} disponibili`;
     $r('repairResults').innerHTML=list.length?list.map(p=>{
       const tx=soldTx(p);
       return `<div class="repair-player ${p.role.toLowerCase()} ${tx?'unavailable':''}" data-rkey="${escapeHtml(pkey(p))}">
@@ -173,7 +193,7 @@
   async function getCatalog(){
     const cacheKey='repairCatalogV2',day=new Date().toISOString().slice(0,10);
     try{const c=JSON.parse(localStorage.getItem(cacheKey)||'null');if(c?.day===day&&Array.isArray(c.rows))return c.rows}catch(e){}
-    const r=await fetch(`https://cdn.jsdelivr.net/gh/bqit/fantaleghe-api-json@main/players.json?repair=2&d=${day}`,{cache:'no-store'});
+    const r=await fetch(`https://cdn.jsdelivr.net/gh/bqit/fantaleghe-api-json@main/players.json?repair=21&d=${day}`,{cache:'no-store'});
     if(!r.ok)throw new Error('Catalogo giocatori non raggiungibile');
     const rows=await r.json();
     localStorage.setItem(cacheKey,JSON.stringify({day,rows}));
@@ -193,6 +213,49 @@
     return {role:roleOf(x.position)||'C',name:clean(x.name)||'Sconosciuto',team:clean(x.team),q:+x.qt_att||+x.qt_i||0,fvm:+x.fvm||0,alias:'',sourceId:String(x.id||''),photo:x.playerImage||'',photoFallback:x.id?`https://content.fantacalcio.it/web/campioncini/21/card/${x.id}.png?v=642`:''};
   }
 
+  function parseIdList(raw){
+    if(Array.isArray(raw))return raw.map(String).map(clean).filter(Boolean);
+    if(raw==null||raw==='')return [];
+    return String(raw).split(/[;,]/).map(clean).filter(Boolean);
+  }
+
+  function isLegheTeamRow(v){
+    return !!(v&&typeof v==='object'&&v.n!=null&&(v.cr!=null||v.cri!=null||v.crs!=null||v.cal!=null||v.cs!=null));
+  }
+
+  function legheTeamRows(obj){
+    if(Array.isArray(obj)&&obj.some(isLegheTeamRow))return obj.filter(isLegheTeamRow);
+    if(!obj||typeof obj!=='object')return [];
+    if(Array.isArray(obj.data)&&obj.data.some(isLegheTeamRow))return obj.data.filter(isLegheTeamRow);
+    if(Array.isArray(obj.teams)&&obj.teams.some(isLegheTeamRow))return obj.teams.filter(isLegheTeamRow);
+    if(obj.teams&&typeof obj.teams==='object'){
+      if(Array.isArray(obj.teams.data)&&obj.teams.data.some(isLegheTeamRow))return obj.teams.data.filter(isLegheTeamRow);
+    }
+    if(obj.leagueTeams&&Array.isArray(obj.leagueTeams))return obj.leagueTeams.filter(isLegheTeamRow);
+    return [];
+  }
+
+  function teamsFromLegheRows(rows){
+    return rows.map((r,i)=>({
+      id:String(r.id??('leghe'+(i+1))),
+      name:clean(r.n||r.name)||`Squadra ${i+1}`,
+      credits:Math.max(0,Math.round(numberOf(r.cr??r.credits??0))),
+      mine:false,
+      owner:clean(r.nu||r.owner||''),
+      initialCredits:numberOf(r.cri),
+      spentCredits:numberOf(r.crs)
+    }));
+  }
+
+  function freeFromLegheRows(rows,maps){
+    const owned=new Set();
+    rows.forEach(r=>parseIdList(r.cal).forEach(id=>owned.add(String(id))));
+    if(!owned.size)return [];
+    const out=[];
+    for(const [id,x] of maps.byId.entries())if(!owned.has(String(id)))out.push(fromCatalog(x));
+    return out.filter(Boolean);
+  }
+
   function detectTeams(obj){
     const out=[],seen=new Set();
     const add=(name,credits,mineFlag)=>{
@@ -205,11 +268,11 @@
       if(!v)return;
       if(Array.isArray(v)){v.forEach(scan);return}
       if(typeof v!=='object')return;
-      const name=v.name??v.nome??v.squadra??v.team??v.teamName??v.nomeSquadra;
-      const credits=v.credits??v.crediti??v.credit??v.budget??v.residuo??v.creditiResidui??v.remainingCredits;
+      const name=v.name??v.nome??v.squadra??v.team??v.teamName??v.nomeSquadra??v.n;
+      const credits=v.credits??v.crediti??v.credit??v.budget??v.residuo??v.creditiResidui??v.remainingCredits??v.cr;
       if(name!=null&&credits!=null)add(name,credits,v.mine??v.me??v.mia);
       for(const [k,val] of Object.entries(v)){
-        if(['players','playersId','playerIds','svincolati','freeAgents','availablePlayers'].includes(k))continue;
+        if(['players','playersId','playerIds','svincolati','freeAgents','availablePlayers','cal','cs'].includes(k))continue;
         if(typeof val==='object')scan(val);
       }
     };
@@ -242,19 +305,40 @@
     if(!repair.teams.some(t=>t.mine)&&repair.teams[0])repair.teams[0].mine=true;
   }
 
+  function explicitFreeArray(obj){
+    if(!obj||typeof obj!=='object')return null;
+    if(Array.isArray(obj.svincolati))return obj.svincolati;
+    if(Array.isArray(obj.freeAgents))return obj.freeAgents;
+    if(Array.isArray(obj.availablePlayers))return obj.availablePlayers;
+    if(Array.isArray(obj.players)){
+      const looksLikeFullPool=obj.players.some(x=>x&&typeof x==='object'&&('stnme'in x||'fvmfc'in x||'marle'in x));
+      if(!looksLikeFullPool)return obj.players;
+    }
+    return null;
+  }
+
   async function importFile(file,kind){
     if(!file)return;
     const text=await file.text();
     const catalog=await getCatalog(),maps=catalogMaps(catalog);
     let obj=null,rows=[];
     try{obj=JSON.parse(text)}catch(e){rows=parseDelimited(text)}
-    let free=[],teams=[];
+    let free=[],teams=[],isLegheSnapshot=false;
 
     if(obj){
-      teams=detectTeams(obj);
+      const legheRows=legheTeamRows(obj);
+      if(legheRows.length){
+        isLegheSnapshot=true;
+        teams=teamsFromLegheRows(legheRows);
+        free=freeFromLegheRows(legheRows,maps);
+      }else{
+        teams=detectTeams(obj);
+      }
+
       const ids=Array.isArray(obj.playersId)?obj.playersId:Array.isArray(obj.playerIds)?obj.playerIds:Array.isArray(obj.svincolatiId)?obj.svincolatiId:null;
-      if(ids)free=ids.map(id=>fromCatalog(maps.byId.get(String(id)))).filter(Boolean);
-      const arr=obj.players||obj.svincolati||obj.freeAgents||obj.availablePlayers;
+      if(ids)free.push(...ids.map(id=>fromCatalog(maps.byId.get(String(id)))).filter(Boolean));
+
+      const arr=explicitFreeArray(obj);
       if(Array.isArray(arr)){
         for(const x of arr){
           if(typeof x==='number'||(typeof x==='string'&&/^\d+$/.test(x)))free.push(fromCatalog(maps.byId.get(String(x))));
@@ -280,11 +364,15 @@
 
     if(kind==='free'){
       if(!free.length)alert('Nel file non ho trovato giocatori svincolati riconoscibili. Se è un formato particolare, mandamelo e aggiungo il parser.');
-      else{repair.freeAgents=free;repair.sourceName=file.name;repair.transactions=[]}
+      else{repair.freeAgents=free;repair.sourceName=isLegheSnapshot?`Snapshot Leghe · ${file.name}`:file.name;repair.transactions=[]}
       if(teams.length)mergeTeams(teams);
     }else{
       if(teams.length)mergeTeams(teams);else alert('Nel file non ho trovato nomi squadra + crediti residui. Puoi inserirli manualmente da “Squadre”.');
-      if(free.length&&!repair.freeAgents.length){repair.freeAgents=free;repair.sourceName=file.name}
+      if(free.length&&(isLegheSnapshot||!repair.freeAgents.length)){
+        repair.freeAgents=free;
+        repair.sourceName=isLegheSnapshot?`Snapshot Leghe · ${file.name}`:file.name;
+        if(isLegheSnapshot)repair.transactions=[];
+      }
     }
     save();
   }
@@ -293,7 +381,7 @@
   $r('repairTab').onclick=()=>switchMode('repair');
   $r('repairSearch').oninput=render;
   $r('repairClear').onclick=()=>{$r('repairSearch').value='';render()};
-  document.querySelectorAll('#repairChips [data-rf]').forEach(b=>b.onclick=()=>{repair.filter=b.dataset.rf;document.querySelectorAll('#repairChips [data-rf]').forEach(x=>x.classList.toggle('active',x===b));save()});
+  document.querySelectorAll('#repairChips [data-rf]').forEach(b=>b.onclick=()=>setFilter(b.dataset.rf));
 
   $r('repairClosePlayer').onclick=closePlayer;
   $r('repairPlayerModal').onclick=e=>{if(e.target===$r('repairPlayerModal'))closePlayer()};
