@@ -58,6 +58,7 @@
     const oldMine=state.teams?.find(t=>t.mine)?.name||'';
     state.teams=teams.map((t,i)=>({id:'pub'+(i+1),name:t.name,credits:Math.max(0,Math.round(+t.credits||0)),mine:oldMine?nrm(t.name)===nrm(oldMine):i===0}));
     if(!state.teams.some(t=>t.mine)&&state.teams[0])state.teams[0].mine=true;
+    state.leagueSize=teams.length;
     state.sourceName=source||state.sourceName;state.version=3;
     localStorage.setItem('fantaRepairV1',JSON.stringify(state));localStorage.setItem('fantaModeV2','repair');
     return state;
@@ -83,7 +84,7 @@
     let free=[];
     try{status.textContent=`✓ ${teams.length} squadre. Provo a leggere anche gli svincolati…`;const marketText=await jina(base+'/market/players?releaseds=');free=playersVisibleInText(marketText);if(free.length>=20)saveFree(free,'Leghe · '+slug+' · URL')}catch(e){}
     status.textContent=`✓ ${teams.length} squadre/crediti importati${free.length>=20?` · ${free.length} svincolati trovati`:' · per gli svincolati usa il file .fclist o la cattura Safari della Lista Svincolati'}.`;
-    setTimeout(()=>location.replace('https://garruk929.github.io/Fanta/?v=2.2.0#repair'),900);
+    setTimeout(()=>location.replace('https://garruk929.github.io/Fanta/?v=2.3.0#repair'),900);
   }
 
   async function importClipboard(){
@@ -96,7 +97,7 @@
     }else if(/market\/players|svincolat/i.test(url+data.title)){
       const free=playersVisibleInText(text);if(!free.length)throw new Error('Nella pagina catturata non riconosco giocatori del listone.');saveFree(free,'Leghe · Lista Svincolati');status.textContent=`✓ Riconosciuti ${free.length} svincolati visibili nella pagina.`;
     }else throw new Error('Apri su Leghe la pagina “Squadre” oppure “Lista Svincolati” e rilancia il preferito.');
-    localStorage.setItem('fantaModeV2','repair');setTimeout(()=>location.replace('https://garruk929.github.io/Fanta/?v=2.2.0#repair'),800);
+    localStorage.setItem('fantaModeV2','repair');setTimeout(()=>location.replace('https://garruk929.github.io/Fanta/?v=2.3.0#repair'),800);
   }
 
   function injectImporter(){
@@ -122,4 +123,10 @@
   function setupRoleSync(){const box=$('roles');if(!box)return;new MutationObserver(syncAuctionRoles).observe(box,{childList:true,subtree:true});document.querySelector('.chips')?.addEventListener('click',()=>setTimeout(syncAuctionRoles,0));syncAuctionRoles()}
 
   setupImporter();setupRoleSync();
+})();
+
+/* carica i perfezionamenti 2.3 senza cambiare il markup base */
+(function(){
+  if(!document.querySelector('link[data-fanta-v23]')){const l=document.createElement('link');l.rel='stylesheet';l.href='v23.css?v=2.3.0';l.dataset.fantaV23='1';document.head.appendChild(l)}
+  if(!document.querySelector('script[data-fanta-v23]')){const s=document.createElement('script');s.src='v23.js?v=2.3.0';s.dataset.fantaV23='1';document.body.appendChild(s)}
 })();
