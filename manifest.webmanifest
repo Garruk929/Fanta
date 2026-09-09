@@ -1,9 +1,12 @@
 {
-  "name": "Fanta Live - Asta 500",
+  "name": "Fanta Live — Assistente Asta",
   "short_name": "Fanta Live",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#06101c",
-  "theme_color": "#07111f",
-  "description": "Assistente live per asta Fantacalcio a 8 squadre e 500 crediti"
+  "background_color": "#08111d",
+  "theme_color": "#08111d",
+  "description": "Assistente indipendente per l'asta del fantacalcio con budget dinamico, hard stop e gestione rosa.",
+  "icons": [
+    {"src": "logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
 }
