@@ -1,1 +1,136 @@
-<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="theme-color" content="#08111d"><meta name="description" content="Fanta Live: assistente gratuito per l'asta del Fantacalcio con budget dinamico, hard stop, infortuni e gestione rosa."><link rel="manifest" href="manifest.webmanifest?v=105"><link rel="apple-touch-icon" href="logo.svg?v=105"><meta property="og:title" content="Fanta Live — Assistente Asta"><meta property="og:description" content="Gestisci budget, tetti dinamici, rosa e alternative durante l'asta del Fantacalcio."><meta property="og:image" content="https://garruk929.github.io/Fanta/logo.svg?v=105"><link rel="icon" href="logo.svg?v=105" type="image/svg+xml"><link rel="stylesheet" href="style.css?v=1.0.5"><title>Fanta Live — Assistente Asta</title></head><body><div class="app"><header class="header"><div class="brand"><div class="brand-left"><div class="logo" role="img" aria-label="Fanta Live" style="background:url(data:image/jpeg;base64,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) center/cover no-repeat"></div><div><h1>Fanta Live</h1><div class="sub" id="headerSub"></div></div></div><div class="brand-actions"><button class="icon" id="undoBtn" title="Annulla ultima operazione">↶</button><button class="icon" id="settingsBtn" title="Impostazioni">⚙️</button></div></div><div class="hero"><div class="hero-card"><span>Crediti rimasti</span><b id="credits">500</b><small id="delta">Strategia in equilibrio</small></div><div class="hero-card"><span>Posti liberi</span><b id="slots">25</b><small>Riserva minima <i id="reserve">25</i> cr</small></div></div><div class="roles" id="roles"></div><div class="search"><span>⌕</span><input id="search" placeholder="Cerca giocatore…" autocomplete="off" autocapitalize="off"><button id="clear">×</button></div><div class="chips"><button class="chip active" data-f="ALL">Tutti</button><button class="chip rolechip p" data-f="P">P</button><button class="chip rolechip d" data-f="D">D</button><button class="chip rolechip c" data-f="C">C</button><button class="chip rolechip a" data-f="A">A</button><button class="chip" data-f="INJ">🔴 Infortunati</button><button class="chip" data-f="AVAILABLE">Disponibili</button><button class="chip" data-f="OWNED">Miei</button></div></header><div class="statusline"><span id="loadState">Caricamento listone…</span><span id="photoState"></span></div><div class="strategy" id="strategy"></div><div class="section"><h2>Giocatori</h2><small id="count"></small></div><div class="list" id="results"></div><div class="section rosterTitle"><h2>La mia rosa</h2><small id="rosterCount"></small></div><div class="roster" id="roster"></div></div><div class="overlay" id="playerModal"><div class="sheet"><div class="grab"></div><div class="player-head"><div class="head-main"><div class="photo big" id="modalPhoto"></div><div class="head-copy"><h3 id="pn"></h3><div class="meta" id="pm"></div><div class="tags" id="ptags"></div></div></div><div class="cap"><b id="pc"></b><small>HARD STOP</small></div></div><div class="signal" id="signal"></div><div class="box profile" id="profile"></div><div class="box" id="health"></div><div class="box plan"><strong id="why1"></strong><br><span id="why2"></span></div><div class="buy"><input id="price" type="number" inputmode="numeric" min="1" placeholder="Prezzo"><button id="buyBtn">✓ Preso da me</button></div><button class="wide" id="otherBtn">Uscito / preso da un altro</button><div class="section compact"><h2>3 alternative</h2></div><div class="alts" id="alts"></div><button class="close" id="closePlayer">Chiudi</button></div></div><div class="overlay" id="settingsModal"><div class="config"><div class="grab"></div><h3>Impostazioni</h3><p>Configura la tua asta. Se cambi budget o slot, l'asta corrente viene azzerata per evitare calcoli incoerenti.</p><div class="grid"><label>Crediti<input id="cfgBudget" type="number" min="1"></label><label>Squadre<input id="cfgTeams" type="number" min="2"></label><label>Portieri<input id="cfgP" type="number" min="1"></label><label>Difensori<input id="cfgD" type="number" min="1"></label><label>Centrocampisti<input id="cfgC" type="number" min="1"></label><label>Attaccanti<input id="cfgA" type="number" min="1"></label></div><button class="savecfg" id="saveCfg">Salva configurazione</button><div class="settingsSection"><h4>Dati asta</h4><button class="settingAction" id="backupBtn">Esporta backup</button><button class="settingAction" id="importBtn">Importa backup</button><input id="importFile" type="file" accept="application/json" hidden><button class="settingAction danger" id="resetBtn">Azzera asta</button></div><div class="settingsSection aboutBox"><div class="aboutTitle"><div aria-label="Fanta Live" style="width:34px;height:34px;border-radius:10px;flex:none;background:url(data:image/jpeg;base64,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) center/cover no-repeat"></div><div><strong>Fanta Live</strong><span>Versione pubblica 1.0.5</span></div></div><p><strong>Privacy.</strong> Rosa, acquisti, budget e impostazioni sono salvati nel browser del dispositivo tramite memoria locale. Non è richiesto un account e Fanta Live non dispone di un proprio backend utenti.</p><p><strong>Fonti.</strong> Il listone di riferimento è mantenuto nel repository del progetto; per campioncini e informazioni sportive l'app può consultare fonti pubbliche esterne, tra cui Fantacalcio.it. Gli stati di infortunio sono indicativi e vanno sempre verificati prima dell'asta.</p><p><strong>Disclaimer.</strong> Progetto indipendente e non affiliato a Fantacalcio.it, Leghe Fantacalcio o alle società calcistiche. Nomi, marchi, immagini e dati di terzi appartengono ai rispettivi titolari.</p><a href="https://garruk929.github.io/Fanta/" target="_blank" rel="noopener">Sito pubblico ↗</a><br><a href="https://github.com/Garruk929/Fanta" target="_blank" rel="noopener">Codice sorgente e licenza ↗</a></div><button class="close" id="closeCfg">Chiudi</button></div></div><script src="app.js?v=1.0.5"></script></body></html>
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#08111d">
+<meta name="description" content="Fanta Live: assistente gratuito per l'asta del Fantacalcio con budget dinamico, hard stop, infortuni e gestione rosa.">
+<link rel="manifest" href="manifest.webmanifest?v=106">
+<link rel="apple-touch-icon" href="assets/fanta-live-icon.jpg?v=106">
+<meta property="og:title" content="Fanta Live — Assistente Asta">
+<meta property="og:description" content="Gestisci budget, tetti dinamici, rosa e alternative durante l'asta del Fantacalcio.">
+<meta property="og:image" content="https://garruk929.github.io/Fanta/assets/fanta-live-icon.jpg?v=106">
+<link rel="icon" href="assets/fanta-live-icon.jpg?v=106" type="image/jpeg">
+<link rel="stylesheet" href="style.css?v=1.0.6">
+<title>Fanta Live — Assistente Asta</title>
+</head>
+<body>
+<div class="app">
+  <header class="header">
+    <div class="brand">
+      <div class="brand-left">
+        <div class="logo"><img src="assets/fanta-live-icon.jpg?v=106" alt="Fanta Live"></div>
+        <div><h1>Fanta Live</h1><div class="sub" id="headerSub"></div></div>
+      </div>
+      <div class="brand-actions">
+        <button class="icon" id="undoBtn" title="Annulla ultima operazione">↶</button>
+        <button class="icon" id="settingsBtn" title="Impostazioni">⚙️</button>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div class="hero-card">
+        <span>Crediti rimasti</span>
+        <b id="credits">500</b>
+        <small id="delta">Strategia in equilibrio</small>
+      </div>
+      <div class="hero-card">
+        <span>Posti liberi</span>
+        <b id="slots">25</b>
+        <small>Riserva minima <i id="reserve">25</i> cr</small>
+      </div>
+    </div>
+
+    <div class="roles" id="roles"></div>
+
+    <div class="search">
+      <span>⌕</span>
+      <input id="search" placeholder="Cerca giocatore…" autocomplete="off" autocapitalize="off">
+      <button id="clear">×</button>
+    </div>
+
+    <div class="chips">
+      <button class="chip active" data-f="ALL">Tutti</button>
+      <button class="chip rolechip p" data-f="P">P</button>
+      <button class="chip rolechip d" data-f="D">D</button>
+      <button class="chip rolechip c" data-f="C">C</button>
+      <button class="chip rolechip a" data-f="A">A</button>
+      <button class="chip" data-f="INJ">🔴 Infortunati</button>
+      <button class="chip" data-f="AVAILABLE">Disponibili</button>
+      <button class="chip" data-f="OWNED">Miei</button>
+    </div>
+  </header>
+
+  <div class="statusline">
+    <span id="loadState">Caricamento listone…</span>
+    <span id="photoState"></span>
+  </div>
+
+  <div class="strategy" id="strategy"></div>
+
+  <div class="section"><h2>Giocatori</h2><small id="count"></small></div>
+  <div class="list" id="results"></div>
+
+  <div class="section rosterTitle"><h2>La mia rosa</h2><small id="rosterCount"></small></div>
+  <div class="roster" id="roster"></div>
+</div>
+
+<div class="overlay" id="playerModal"><div class="sheet">
+  <div class="grab"></div>
+  <div class="player-head">
+    <div class="head-main">
+      <div class="photo big" id="modalPhoto"></div>
+      <div class="head-copy"><h3 id="pn"></h3><div class="meta" id="pm"></div><div class="tags" id="ptags"></div></div>
+    </div>
+    <div class="cap"><b id="pc"></b><small>HARD STOP</small></div>
+  </div>
+  <div class="signal" id="signal"></div>
+  <div class="box profile" id="profile"></div>
+  <div class="box" id="health"></div>
+  <div class="box plan"><strong id="why1"></strong><br><span id="why2"></span></div>
+  <div class="buy"><input id="price" type="number" inputmode="numeric" min="1" placeholder="Prezzo"><button id="buyBtn">✓ Preso da me</button></div>
+  <button class="wide" id="otherBtn">Uscito / preso da un altro</button>
+  <div class="section compact"><h2>3 alternative</h2></div>
+  <div class="alts" id="alts"></div>
+  <button class="close" id="closePlayer">Chiudi</button>
+</div></div>
+
+<div class="overlay" id="settingsModal"><div class="config">
+  <div class="grab"></div>
+  <h3>Impostazioni</h3>
+  <p>Configura la tua asta. Se cambi budget o slot, l'asta corrente viene azzerata per evitare calcoli incoerenti.</p>
+  <div class="grid">
+    <label>Crediti<input id="cfgBudget" type="number" min="1"></label>
+    <label>Squadre<input id="cfgTeams" type="number" min="2"></label>
+    <label>Portieri<input id="cfgP" type="number" min="1"></label>
+    <label>Difensori<input id="cfgD" type="number" min="1"></label>
+    <label>Centrocampisti<input id="cfgC" type="number" min="1"></label>
+    <label>Attaccanti<input id="cfgA" type="number" min="1"></label>
+  </div>
+  <button class="savecfg" id="saveCfg">Salva configurazione</button>
+
+  <div class="settingsSection">
+    <h4>Dati asta</h4>
+    <button class="settingAction" id="backupBtn">Esporta backup</button>
+    <button class="settingAction" id="importBtn">Importa backup</button>
+    <input id="importFile" type="file" accept="application/json" hidden>
+    <button class="settingAction danger" id="resetBtn">Azzera asta</button>
+  </div>
+
+  <div class="settingsSection aboutBox">
+    <div class="aboutTitle"><img src="assets/fanta-live-icon.jpg?v=106" alt="Fanta Live"><div><strong>Fanta Live</strong><span>Versione pubblica 1.0.6</span></div></div>
+    <p><strong>Privacy.</strong> Rosa, acquisti, budget e impostazioni sono salvati nel browser del dispositivo tramite memoria locale. Non è richiesto un account e Fanta Live non dispone di un proprio backend utenti.</p>
+    <p><strong>Fonti.</strong> Il listone di riferimento è mantenuto nel repository del progetto; per campioncini e informazioni sportive l'app può consultare fonti pubbliche esterne, tra cui Fantacalcio.it. Gli stati di infortunio sono indicativi e vanno sempre verificati prima dell'asta.</p>
+    <p><strong>Disclaimer.</strong> Progetto indipendente e non affiliato a Fantacalcio.it, Leghe Fantacalcio o alle società calcistiche. Nomi, marchi, immagini e dati di terzi appartengono ai rispettivi titolari.</p>
+    <a href="https://garruk929.github.io/Fanta/" target="_blank" rel="noopener">Sito pubblico ↗</a><br>
+    <a href="https://github.com/Garruk929/Fanta" target="_blank" rel="noopener">Codice sorgente e licenza ↗</a>
+  </div>
+
+  <button class="close" id="closeCfg">Chiudi</button>
+</div></div>
+
+<script src="app.js?v=1.0.6"></script>
+</body>
+</html>
