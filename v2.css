@@ -38,9 +38,10 @@
 .mode-tab.repair-tab.active{box-shadow:0 8px 24px rgba(175,77,190,.28)}
 body.repair-mode .mode-tabs{background:rgba(20,10,29,.97)}
 
-/* Header liberi dalla vecchia barra superiore. */
+/* Header liberi dalla vecchia barra superiore e rispetto della safe area iPhone. */
 #auctionPanel .header{top:0!important}
 .repair-header{top:0!important}
+.repair-app{padding-top:calc(env(safe-area-inset-top) + 8px)!important}
 #auctionPanel .app,.repair-app{padding-bottom:calc(100px + env(safe-area-inset-bottom))!important}
 
 /* Ruoli: stessi colori dell'asta principale anche in riparazione. */
