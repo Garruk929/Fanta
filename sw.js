@@ -1,5 +1,5 @@
-const CACHE='fanta-live-public-1.0.9';
-const ASSETS=['./','./index.html','./style.css','./app.js','./players.csv','./manifest.webmanifest','./assets/fanta-live-icon-hd.png?v=109'];
+const CACHE='fanta-live-public-1.0.10';
+const ASSETS=['./','./index.html','./style.css','./app.js','./players.csv','./manifest.webmanifest','./assets/fanta-live-icon-hd.png?v=110','./assets/fanta-live-icon-180.png?v=110'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
