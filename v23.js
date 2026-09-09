@@ -1,4 +1,4 @@
-/* Fanta Live 2.3.2 — pulizia UI riparazione e testata compatta */
+/* Fanta Live 2.3.3 — pulizia UI riparazione e testata compatta */
 (function(){
   'use strict';
   const $=id=>document.getElementById(id);
@@ -18,7 +18,7 @@
   function leagueCount(state=readRepair()){return knownLeague(state)?(Number(state.leagueSize)||state.teams.length):0}
   function season(){const d=new Date(),y=d.getFullYear(),m=d.getMonth()+1;return m>=7?`${y}/${String(y+1).slice(2)}`:`${y-1}/${String(y).slice(2)}`}
 
-  function syncVersion(){const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.3.2'}
+  function syncVersion(){const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.3.3'}
   function syncGlobalSub(){
     const sub=$('headerSub');if(!sub)return;
     if(document.body.classList.contains('repair-mode')){
