@@ -1,7 +1,7 @@
 {
   "name": "Fanta Live — Assistente Asta",
   "short_name": "Fanta Live",
-  "start_url": "./?v=1.0.10",
+  "start_url": "./?v=1.0.11",
   "scope": "./",
   "display": "standalone",
   "background_color": "#08111d",
@@ -9,13 +9,7 @@
   "description": "Assistente gratuito per l'asta del Fantacalcio con budget dinamico, hard stop, infortuni e gestione rosa.",
   "icons": [
     {
-      "src": "assets/fanta-live-icon-hd.png?v=110",
-      "sizes": "256x256",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "assets/fanta-live-icon-180.png?v=110",
+      "src": "assets/fanta-live-icon-180.png?v=111",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
