@@ -1,15 +1,15 @@
 {
   "name": "Fanta Live — Asta & Riparazione",
   "short_name": "Fanta Live",
-  "start_url": "./?v=2.2.0",
+  "start_url": "./?v=2.3.0",
   "scope": "./",
   "display": "standalone",
   "background_color": "#08111d",
   "theme_color": "#08111d",
-  "description": "Assistente Fantacalcio per asta iniziale e asta di riparazione con budget dinamico, import mobile Leghe, svincolati e gestione crediti squadre.",
+  "description": "Assistente Fantacalcio per asta iniziale e asta di riparazione con budget dinamico, import svincolati e gestione crediti squadre.",
   "icons": [
     {
-      "src": "apple-touch-icon.png?v=220",
+      "src": "apple-touch-icon.png?v=230",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
