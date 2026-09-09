@@ -1,3 +1,5 @@
+@import url('v23.css?v=231');
+@import url('v231.css?v=231');
 /* Fanta Live 2.2 — compact navigation, synced role filters, mobile Leghe import */
 .mode-tabs{width:min(calc(100% - 86px),320px)!important;bottom:calc(8px + env(safe-area-inset-bottom))!important;padding:5px!important;gap:5px!important;border:1px solid rgba(255,255,255,.09)!important;border-radius:16px!important;background:rgba(7,16,27,.92)!important;box-shadow:0 8px 30px rgba(0,0,0,.34)!important}
 .mode-tab{min-height:36px!important;padding:6px 10px!important;border-radius:11px!important;font-size:10.5px!important;gap:5px!important}
