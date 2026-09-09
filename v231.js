@@ -1,10 +1,10 @@
-/* Fanta Live 2.3.1 — compatta la testata senza perdere i controlli */
+/* Fanta Live 2.3.2 — compatta la testata senza perdere i controlli */
 (function(){
   'use strict';
   function compactHeader(){
-    const shellBrand=document.querySelector('.app-shell-brand');
-    const actions=document.querySelector('#auctionPanel .brand-actions');
-    if(shellBrand&&actions&&actions.parentElement!==shellBrand) shellBrand.appendChild(actions);
+    const controls=document.querySelector('.app-shell-controls');
+    const actions=document.querySelector('#auctionPanel .brand-actions')||document.querySelector('.app-shell-brand .brand-actions');
+    if(controls&&actions&&actions.parentElement!==controls) controls.appendChild(actions);
   }
   compactHeader();
   requestAnimationFrame(compactHeader);
