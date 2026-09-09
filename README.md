@@ -1,6 +1,8 @@
 # ⚽ Fanta Live
 
-![Fanta Live](logo.svg)
+<p align="center">
+  <img src="assets/fanta-live-icon.png" alt="Fanta Live" width="260">
+</p>
 
 **Fanta Live** è una web app gratuita pensata per accompagnarti durante l'asta del Fantacalcio: cerca i giocatori, registra gli acquisti e lascia che l'app ricalcoli in tempo reale budget, hard stop e correzioni per reparto.
 
@@ -76,11 +78,15 @@ Per eliminare i dati dell'asta basta usare **Impostazioni → Azzera asta** oppu
 .
 ├── index.html
 ├── app.js
+├── photo-fix.js
 ├── style.css
 ├── players.csv
 ├── manifest.webmanifest
 ├── sw.js
-├── logo.svg
+├── apple-touch-icon.png
+├── favicon.png
+├── assets/
+│   └── fanta-live-icon.png
 ├── docs/
 │   └── preview.svg
 └── LICENSE
@@ -100,4 +106,4 @@ La licenza MIT non concede diritti su nomi, marchi, immagini, loghi o dati appar
 
 ---
 
-**Fanta Live 1.0.0** · Bid. Build. Win.
+**Fanta Live 1.0.14** · Bid. Build. Win.
