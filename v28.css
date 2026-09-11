@@ -1,0 +1,120 @@
+/* Fanta Live 2.8.0 — scheda Riparazione coerente con la scheda Asta */
+
+/* Stessa gerarchia visiva della scheda dell'asta normale. */
+#repairPlayerModal .repair-sheet.repair-unified-sheet{
+  background:linear-gradient(180deg,#111f34,#0b1626)!important;
+  border-color:rgba(255,255,255,.10)!important;
+  color:#f5f8fc!important;
+}
+#repairPlayerModal .repair-player-head{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+}
+#repairPlayerModal .repair-player-copy{min-width:0!important;flex:1!important}
+#repairPlayerModal .repair-player-copy h3{font-size:22px!important;margin:0!important}
+#repairPlayerModal .repair-cap{min-width:78px!important;text-align:right!important}
+#repairPlayerModal .repair-cap b{font-size:40px!important;line-height:1!important;color:#f5f8fc!important}
+#repairPlayerModal .repair-cap small{font-size:8px!important;color:#8fa1b7!important;letter-spacing:.04em!important}
+
+/* Segnale, profilo, condizione e strategia con la stessa scansione della scheda Asta. */
+#repairPlayerModal .repair-player-info-v27{gap:9px!important;margin:10px 0!important}
+#repairPlayerModal .repair-detail-signal{
+  display:inline-block!important;
+  justify-self:start!important;
+  margin:0!important;
+  padding:6px 9px!important;
+  border-radius:999px!important;
+  font-size:10px!important;
+  font-weight:900!important;
+}
+#repairPlayerModal .repair-detail-box{
+  border:1px solid rgba(255,255,255,.075)!important;
+  border-radius:14px!important;
+  background:rgba(255,255,255,.035)!important;
+  padding:10px 11px!important;
+  color:#c7d2df!important;
+  font-size:11px!important;
+  line-height:1.45!important;
+}
+#repairPlayerModal .repair-detail-box strong{color:#f5f8fc!important}
+#repairPlayerModal .repair-detail-box.profile{
+  background:rgba(102,141,255,.07)!important;
+  border-color:rgba(102,141,255,.15)!important;
+}
+#repairPlayerModal .repair-detail-box.strategy{
+  background:rgba(102,141,255,.07)!important;
+  border-color:rgba(102,141,255,.15)!important;
+}
+/* Il rigorista è già evidenziato nei tag in alto: evitiamo un riquadro duplicato. */
+#repairPlayerModal .repair-detail-box.penalties{display:none!important}
+
+/* Squadra acquirente compatta, poi prezzo + conferma affiancati come nell'asta normale. */
+#repairPlayerModal .repair-buyer-box{
+  display:block!important;
+  margin:8px 0 0!important;
+  color:#8fa1b7!important;
+  font-size:9px!important;
+}
+#repairPlayerModal .repair-buyer-box select{
+  display:block!important;
+  width:100%!important;
+  margin-top:5px!important;
+  min-height:42px!important;
+  border:1px solid rgba(255,255,255,.075)!important;
+  border-radius:13px!important;
+  background:#182b45!important;
+  color:#f5f8fc!important;
+  padding:9px 11px!important;
+  font-weight:750!important;
+}
+#repairPlayerModal .repair-unified-buy{
+  display:grid!important;
+  grid-template-columns:1fr 1fr!important;
+  gap:7px!important;
+  margin-top:9px!important;
+}
+#repairPlayerModal .repair-price-entry{margin:0!important;min-width:0!important}
+#repairPlayerModal .repair-price-entry input{
+  width:100%!important;
+  height:54px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:13px!important;
+  background:#f8fbff!important;
+  color:#101828!important;
+  font-size:20px!important;
+  font-weight:800!important;
+  padding:12px!important;
+}
+#repairPlayerModal .repair-price-entry input::placeholder{color:#9aa5b3!important;opacity:1!important}
+#repairPlayerModal .repair-unified-buy .repair-confirm{
+  height:54px!important;
+  margin:0!important;
+  border:0!important;
+  border-radius:13px!important;
+  background:linear-gradient(135deg,#3bd88d,#4be1a2)!important;
+  color:#06150d!important;
+  font-size:14px!important;
+  font-weight:900!important;
+}
+#repairPlayerModal .repair-close{
+  width:100%!important;
+  margin-top:10px!important;
+  border:1px solid rgba(255,255,255,.075)!important;
+  border-radius:13px!important;
+  background:transparent!important;
+  color:#afbed0!important;
+  padding:11px!important;
+  font-weight:800!important;
+}
+
+@media(max-width:520px){
+  #repairPlayerModal .repair-player-copy h3{font-size:20px!important}
+  #repairPlayerModal .repair-cap b{font-size:36px!important}
+  #repairPlayerModal .repair-detail-box{font-size:10px!important;padding:9px 10px!important}
+  #repairPlayerModal .repair-unified-buy{gap:6px!important}
+  #repairPlayerModal .repair-price-entry input,#repairPlayerModal .repair-unified-buy .repair-confirm{height:50px!important}
+  #repairPlayerModal .repair-unified-buy .repair-confirm{font-size:13px!important}
+}
