@@ -1,4 +1,4 @@
-/* Fanta Live 3.1.4 — coerenza filtri Asta/Riparazione */
+/* Fanta Live 3.1.5 — coerenza filtri e schede giocatore uniformi */
 
 /* Riparazione: nelle card ruolo lascia solo P/D/C/A + numero, senza etichette estese. */
 #repairPanel .repair-role-stat small{display:none!important}
@@ -37,7 +37,11 @@ body.repair-mode #repairPanel .repair-role-stat.active{
   gap:10px!important;
   border-radius:15px!important;
   padding:8px 10px!important;
-  min-height:58px!important;
+  height:68px!important;
+  min-height:68px!important;
+  max-height:68px!important;
+  overflow:hidden!important;
+  align-items:center!important;
 }
 #auctionPanel .player .photo,
 #repairPanel .repair-player .photo{width:40px!important;height:40px!important;border-radius:12px!important}
@@ -49,6 +53,61 @@ body.repair-mode #repairPanel .repair-role-stat.active{
 #repairPanel .repair-price b{font-size:19px!important}
 #auctionPanel .price small,
 #repairPanel .repair-price small{font-size:7px!important}
+
+/* Il blocco centrale ha sempre tre righe: nome, meta e stato.
+   La riga stato resta riservata anche quando il giocatore non ha badge. */
+#auctionPanel .player>div:nth-child(2),
+#repairPanel .repair-player>div:nth-child(2){
+  min-width:0!important;
+  display:grid!important;
+  grid-template-rows:17px 14px 18px!important;
+  align-content:center!important;
+}
+#auctionPanel .player .name,
+#repairPanel .repair-player .name{
+  height:17px!important;
+  line-height:17px!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+#auctionPanel .player .meta,
+#repairPanel .repair-player .meta{
+  height:14px!important;
+  line-height:14px!important;
+  margin-top:0!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+#auctionPanel .player .tags,
+#repairPanel .repair-player .tags{
+  height:18px!important;
+  min-height:18px!important;
+  max-height:18px!important;
+  margin-top:0!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:3px!important;
+  flex-wrap:nowrap!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+}
+#auctionPanel .player .tags:empty,
+#repairPanel .repair-player .tags:empty{visibility:hidden!important}
+#auctionPanel .player .tag,
+#repairPanel .repair-player .tag{
+  flex:0 0 auto!important;
+  font-size:7.5px!important;
+  line-height:1.1!important;
+  padding:2px 5px!important;
+}
+#repairPanel .repair-price b{
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  max-width:82px!important;
+}
 
 /* Anche i tab/filtro giocatori mantengono la stessa misura nelle due modalità. */
 #auctionPanel .chips .chip,
@@ -63,4 +122,6 @@ body.repair-mode #repairPanel .repair-role-stat.active{
 @media(max-width:520px){
   #repairPanel .repair-role-stat{min-height:49px!important;padding:6px 4px!important}
   #auctionPanel .chips .chip,#repairPanel .repair-chips button{min-height:30px!important;font-size:8.5px!important;padding:7px 3px!important}
+  #auctionPanel .player,#repairPanel .repair-player{height:68px!important;min-height:68px!important;max-height:68px!important}
+  #auctionPanel .player .tag,#repairPanel .repair-player .tag{font-size:7.2px!important;padding:2px 4px!important}
 }
