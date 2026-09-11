@@ -1,4 +1,4 @@
-/* Fanta Live 2.9.0 — undo Riparazione + pulizia strategia duplicata */
+/* Fanta Live 2.9.1 — undo Riparazione accanto alle impostazioni + pulizia strategia */
 (function(){
   'use strict';
   const $=id=>document.getElementById(id);
@@ -48,14 +48,33 @@
   }
 
   function ensureRepairUndo(){
-    const controls=document.querySelector('.app-shell-controls');if(!controls)return;
-    let box=controls.querySelector('.repair-top-actions');
+    /* Rimuove l'eventuale vecchio undo posizionato nella barra Asta/Riparazione. */
+    document.querySelectorAll('.app-shell-controls .repair-top-actions').forEach(el=>el.remove());
+
+    const brand=document.querySelector('.repair-brand'),gear=$('repairSettingsBtn');
+    if(!brand||!gear)return;
+
+    let box=brand.querySelector('.repair-brand-actions');
     if(!box){
-      box=document.createElement('div');box.className='repair-top-actions';
-      box.innerHTML='<button class="icon repair-undo-top" type="button" title="Annulla ultimo movimento riparazione" aria-label="Annulla ultimo movimento riparazione">↶</button>';
-      controls.appendChild(box);
-      box.querySelector('button').addEventListener('click',undoLatestRepair);
+      box=document.createElement('div');
+      box.className='repair-brand-actions';
+      brand.appendChild(box);
     }
+
+    let undo=box.querySelector('.repair-undo-top');
+    if(!undo){
+      undo=document.createElement('button');
+      undo.className='repair-gear repair-undo-top';
+      undo.type='button';
+      undo.title='Annulla ultimo movimento riparazione';
+      undo.setAttribute('aria-label','Annulla ultimo movimento riparazione');
+      undo.textContent='↶';
+      undo.addEventListener('click',undoLatestRepair);
+    }
+
+    if(undo.parentElement!==box)box.appendChild(undo);
+    if(gear.parentElement!==box)box.appendChild(gear);
+    if(box.firstElementChild!==undo)box.insertBefore(undo,gear);
     syncUndoState();
   }
 
@@ -77,7 +96,7 @@
     const tx=$('repairTransactions');if(tx)new MutationObserver(syncUndoState).observe(tx,{childList:true,subtree:true});
     new MutationObserver(()=>{ensureRepairUndo();polishImporterCopy()}).observe(document.body,{attributes:true,attributeFilter:['class']});
     document.addEventListener('click',e=>{if(e.target.closest?.('.repair-player'))setTimeout(cleanupRepairStrategy,25)});
-    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.9.0';
+    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.9.1';
     setTimeout(()=>{ensureRepairUndo();cleanupRepairStrategy();polishImporterCopy()},700);
     setTimeout(()=>{ensureRepairUndo();cleanupRepairStrategy();polishImporterCopy()},2200);
   }
