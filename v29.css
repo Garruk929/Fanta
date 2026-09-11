@@ -1,4 +1,4 @@
-/* Fanta Live 2.9.3 — coerenza Riparazione */
+/* Fanta Live 3.0.0 — Liquid Glass + coerenza Riparazione */
 .repair-brand-actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex:none}
 .repair-brand-actions .repair-gear{margin:0!important;flex:none}
 .repair-brand-actions .repair-undo-top:disabled{opacity:.28;filter:saturate(.3);pointer-events:none}
@@ -65,6 +65,290 @@ body.repair-mode #repairPlayerModal .repair-close{
 #repairPlayerModal .repair-cap{display:none!important}
 #repairPlayerModal .repair-player-head{grid-template-columns:auto minmax(0,1fr)!important}
 
+/* =========================================================
+   FANTA LIVE 3.0 — LIQUID GLASS
+   Vetro traslucido, riflessi sottili, profondità e leggibilità.
+   ========================================================= */
+:root{
+  --glass-blur:22px;
+  --glass-sat:155%;
+  --glass-bg:rgba(19,34,55,.56);
+  --glass-bg-strong:rgba(18,33,54,.72);
+  --glass-line:rgba(255,255,255,.135);
+  --glass-line-soft:rgba(255,255,255,.075);
+  --glass-hi:rgba(255,255,255,.105);
+  --glass-shadow:0 14px 38px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.10);
+  --glass-shadow-soft:0 8px 24px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.075);
+  --glass-repair:rgba(49,27,64,.57);
+  --glass-repair-strong:rgba(46,26,60,.73);
+}
+
+html,body{
+  background:
+    radial-gradient(640px 360px at 12% -4%,rgba(75,124,255,.24),transparent 64%),
+    radial-gradient(520px 420px at 104% 8%,rgba(78,145,255,.14),transparent 62%),
+    radial-gradient(460px 360px at 54% 112%,rgba(92,124,255,.10),transparent 70%),
+    linear-gradient(180deg,#07101c 0%,#0a1422 46%,#08111d 100%)!important;
+  background-attachment:fixed!important;
+}
+body.repair-mode{
+  background:
+    radial-gradient(620px 380px at 8% -2%,rgba(164,88,226,.28),transparent 64%),
+    radial-gradient(540px 390px at 106% 10%,rgba(215,88,158,.16),transparent 66%),
+    radial-gradient(460px 350px at 48% 112%,rgba(149,83,205,.12),transparent 70%),
+    linear-gradient(180deg,#12091b 0%,#180e23 48%,#110a1a 100%)!important;
+  background-attachment:fixed!important;
+}
+
+/* Testata globale: una lastra di vetro continua, non una barra opaca. */
+.app-shell-head{
+  background:linear-gradient(180deg,rgba(8,17,29,.72),rgba(8,17,29,.42))!important;
+  border-bottom:1px solid rgba(255,255,255,.08)!important;
+  -webkit-backdrop-filter:blur(26px) saturate(165%)!important;
+  backdrop-filter:blur(26px) saturate(165%)!important;
+  box-shadow:0 12px 28px rgba(0,0,0,.12),inset 0 -1px 0 rgba(255,255,255,.025)!important;
+}
+body.repair-mode .app-shell-head{
+  background:linear-gradient(180deg,rgba(25,12,35,.74),rgba(24,12,34,.43))!important;
+  border-bottom-color:rgba(231,184,255,.09)!important;
+}
+
+/* Switch Asta / Riparazione: pillola Liquid Glass. */
+.app-shell-controls .mode-tabs,
+.app-shell-head .mode-tabs{
+  background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.028))!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(150%)!important;
+  backdrop-filter:blur(18px) saturate(150%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 7px 20px rgba(0,0,0,.13)!important;
+}
+.app-shell-controls .mode-tab,
+.app-shell-head .mode-tab{
+  background:transparent!important;
+  border:1px solid transparent!important;
+  color:#9aabc0!important;
+  box-shadow:none!important;
+  transition:background .18s ease,border-color .18s ease,box-shadow .18s ease,transform .12s ease,color .18s ease!important;
+}
+.app-shell-controls #auctionTab.active,
+.app-shell-head #auctionTab.active{
+  background:linear-gradient(145deg,rgba(95,134,255,.70),rgba(71,111,222,.54))!important;
+  border-color:rgba(160,190,255,.28)!important;
+  color:#fff!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 5px 15px rgba(58,96,194,.22)!important;
+}
+body.repair-mode #repairTab.active,
+body.repair-mode .app-shell-controls #repairTab.active,
+body.repair-mode .app-shell-head .mode-tab.repair-tab.active{
+  background:linear-gradient(145deg,rgba(171,95,224,.72),rgba(128,66,174,.56))!important;
+  border-color:rgba(232,184,255,.28)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 5px 15px rgba(142,72,188,.23)!important;
+}
+
+/* Pulsanti tondi piccoli, incluso undo/settings. */
+.icon,.repair-gear,
+.app-shell-controls .brand-actions .icon,
+.repair-brand-actions .repair-gear{
+  background:linear-gradient(145deg,rgba(255,255,255,.095),rgba(255,255,255,.035))!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(150%)!important;
+  backdrop-filter:blur(18px) saturate(150%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 7px 18px rgba(0,0,0,.13)!important;
+}
+
+/* Card principali Asta. */
+.hero-card,.strategy,.player,.roster-row,.role,.strategyRole{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018)),
+    rgba(13,27,46,.53)!important;
+  border-color:var(--glass-line)!important;
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat))!important;
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat))!important;
+  box-shadow:var(--glass-shadow-soft)!important;
+}
+.hero-card{
+  background:
+    linear-gradient(150deg,rgba(255,255,255,.105),rgba(255,255,255,.022) 46%),
+    rgba(14,29,49,.58)!important;
+  box-shadow:var(--glass-shadow)!important;
+}
+.role{
+  background:
+    linear-gradient(145deg,color-mix(in srgb,var(--role) 11%,rgba(255,255,255,.05)),rgba(255,255,255,.016)),
+    rgba(13,27,46,.50)!important;
+  border-color:color-mix(in srgb,var(--role) 30%,rgba(255,255,255,.10))!important;
+}
+.player{
+  border-left:1px solid var(--glass-line)!important;
+  overflow:hidden!important;
+}
+.player.p{box-shadow:inset 3px 0 0 color-mix(in srgb,var(--P) 62%,transparent),var(--glass-shadow-soft)!important}
+.player.d{box-shadow:inset 3px 0 0 color-mix(in srgb,var(--D) 62%,transparent),var(--glass-shadow-soft)!important}
+.player.c{box-shadow:inset 3px 0 0 color-mix(in srgb,var(--C) 62%,transparent),var(--glass-shadow-soft)!important}
+.player.a{box-shadow:inset 3px 0 0 color-mix(in srgb,var(--A) 62%,transparent),var(--glass-shadow-soft)!important}
+.photo{
+  background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025))!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10)!important;
+}
+
+/* Ricerca Liquid Glass: niente rettangolo pieno, più simile a una lente di vetro. */
+.search input,.repair-search input{
+  background:linear-gradient(145deg,rgba(255,255,255,.085),rgba(255,255,255,.035))!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(155%)!important;
+  backdrop-filter:blur(20px) saturate(155%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 8px 20px rgba(0,0,0,.14)!important;
+}
+.search input:focus{
+  border-color:rgba(121,158,255,.48)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 0 0 3px rgba(102,141,255,.08),0 8px 22px rgba(0,0,0,.14)!important;
+}
+.repair-search input:focus{
+  border-color:rgba(207,137,255,.44)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 0 0 3px rgba(180,108,255,.08),0 8px 22px rgba(0,0,0,.14)!important;
+}
+.search button,.repair-search button{
+  background:rgba(255,255,255,.065)!important;
+  border-color:rgba(255,255,255,.10)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+  backdrop-filter:blur(12px)!important;
+}
+
+/* Chip e filtri: vetro sottile; i ruoli attivi conservano il loro colore. */
+.chip,.repair-chips button{
+  background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.024))!important;
+  border-color:rgba(255,255,255,.11)!important;
+  -webkit-backdrop-filter:blur(14px) saturate(145%)!important;
+  backdrop-filter:blur(14px) saturate(145%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 4px 12px rgba(0,0,0,.08)!important;
+}
+.chip.active:not(.rolechip){
+  background:linear-gradient(145deg,rgba(102,141,255,.78),rgba(77,111,205,.62))!important;
+  border-color:rgba(168,192,255,.24)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),0 5px 14px rgba(62,97,190,.18)!important;
+}
+body.repair-mode .repair-chips button.active:not([data-rf="P"]):not([data-rf="D"]):not([data-rf="C"]):not([data-rf="A"]){
+  background:linear-gradient(145deg,rgba(173,95,226,.78),rgba(128,67,176,.62))!important;
+  border-color:rgba(230,180,255,.23)!important;
+}
+
+/* Riparazione: card viola in vetro, più ariose ma non più grandi. */
+body.repair-mode .repair-header{
+  background:linear-gradient(180deg,rgba(18,9,27,.46),rgba(18,9,27,.18))!important;
+  -webkit-backdrop-filter:blur(22px) saturate(150%)!important;
+  backdrop-filter:blur(22px) saturate(150%)!important;
+}
+body.repair-mode .repair-card,
+body.repair-mode .power-team,
+body.repair-mode .repair-role-stat,
+body.repair-mode .repair-summary,
+body.repair-mode .repair-actions button,
+body.repair-mode .repair-tx{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018)),
+    rgba(47,27,60,.48)!important;
+  border-color:rgba(233,192,255,.13)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(150%)!important;
+  backdrop-filter:blur(20px) saturate(150%)!important;
+  box-shadow:0 9px 24px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.075)!important;
+}
+body.repair-mode .repair-card.primary{
+  background:
+    linear-gradient(145deg,rgba(203,132,255,.16),rgba(255,255,255,.022)),
+    rgba(58,31,76,.53)!important;
+  border-color:rgba(221,166,255,.20)!important;
+}
+body.repair-mode .repair-role-stat{
+  background:
+    linear-gradient(145deg,color-mix(in srgb,var(--role) 9%,rgba(255,255,255,.05)),rgba(255,255,255,.014)),
+    rgba(44,26,57,.48)!important;
+  border-color:color-mix(in srgb,var(--role) 28%,rgba(255,255,255,.09))!important;
+}
+body.repair-mode .repair-player,
+body.repair-mode .repair-player.p,
+body.repair-mode .repair-player.d,
+body.repair-mode .repair-player.c,
+body.repair-mode .repair-player.a{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.015)),
+    rgba(46,27,59,.54)!important;
+  border:1px solid rgba(231,187,255,.13)!important;
+  border-left:3px solid color-mix(in srgb,var(--role) 62%,transparent)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(150%)!important;
+  backdrop-filter:blur(20px) saturate(150%)!important;
+  box-shadow:0 9px 24px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.07)!important;
+}
+
+/* Sheet/modali: vetro più spesso per garantire contrasto. */
+.sheet,.config,.repair-sheet,
+body.repair-mode #repairPlayerModal .repair-sheet.repair-unified-sheet,
+body.repair-mode #repairPlayerModal .repair-sheet{
+  background:
+    linear-gradient(165deg,rgba(255,255,255,.085),rgba(255,255,255,.025) 42%),
+    rgba(12,25,42,.88)!important;
+  border-color:rgba(255,255,255,.15)!important;
+  -webkit-backdrop-filter:blur(30px) saturate(160%)!important;
+  backdrop-filter:blur(30px) saturate(160%)!important;
+  box-shadow:0 -18px 62px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.11)!important;
+}
+body.repair-mode .repair-sheet,
+body.repair-mode #repairPlayerModal .repair-sheet.repair-unified-sheet,
+body.repair-mode #repairPlayerModal .repair-sheet{
+  background:
+    linear-gradient(165deg,rgba(255,255,255,.085),rgba(255,255,255,.022) 42%),
+    rgba(35,20,47,.90)!important;
+  border-color:rgba(232,190,255,.16)!important;
+}
+.box,.settingAction,.wide,.close,
+body.repair-mode #repairPlayerModal .repair-detail-box,
+body.repair-mode #repairPlayerModal .repair-buyer-box select,
+.repair-close,.repair-add-team,.repair-danger{
+  background:linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.025))!important;
+  border-color:rgba(255,255,255,.11)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(145%)!important;
+  backdrop-filter:blur(16px) saturate(145%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.065)!important;
+}
+body.repair-mode #repairPlayerModal .repair-detail-box.profile,
+body.repair-mode #repairPlayerModal .repair-detail-box.strategy{
+  background:linear-gradient(145deg,rgba(190,111,240,.13),rgba(255,255,255,.025))!important;
+  border-color:rgba(215,156,250,.18)!important;
+}
+
+/* CTA: ancora colorate, ma con effetto vetro/speculare. */
+.buy button,.savecfg,.repair-confirm{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),0 9px 22px rgba(0,0,0,.16)!important;
+}
+.repair-confirm{
+  background:linear-gradient(145deg,rgba(190,104,238,.92),rgba(169,79,190,.82))!important;
+  border:1px solid rgba(238,196,255,.24)!important;
+}
+
+/* Interazioni leggere, senza effetto giocattolo. */
+.mode-tab:active,.icon:active,.repair-gear:active,.chip:active,.repair-chips button:active,
+.hero-card:active,.role:active,.player:active,.repair-player:active,.repair-actions button:active{
+  transform:scale(.985)!important;
+}
+
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  .app-shell-head,.hero-card,.strategy,.player,.roster-row,.role,.strategyRole,
+  .search input,.repair-search input,.chip,.repair-chips button,.repair-card,.power-team,
+  .repair-role-stat,.repair-summary,.repair-actions button,.repair-player,.sheet,.config,.repair-sheet{
+    background-color:rgba(16,29,48,.94)!important;
+  }
+  body.repair-mode .repair-card,body.repair-mode .power-team,body.repair-mode .repair-role-stat,
+  body.repair-mode .repair-summary,body.repair-mode .repair-actions button,body.repair-mode .repair-player,
+  body.repair-mode .repair-sheet{background-color:rgba(39,23,51,.95)!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .mode-tab,.icon,.repair-gear,.chip,.repair-chips button,.hero-card,.role,.player,.repair-player,.repair-actions button{transition:none!important}
+}
+
 @media(max-width:520px){
+  :root{--glass-blur:18px}
+  .hero-card,.strategy,.player,.repair-card,.repair-player,.repair-summary{box-shadow:0 7px 20px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.065)!important}
+  .app-shell-head{-webkit-backdrop-filter:blur(22px) saturate(155%)!important;backdrop-filter:blur(22px) saturate(155%)!important}
+  .search input,.repair-search input{-webkit-backdrop-filter:blur(16px) saturate(150%)!important;backdrop-filter:blur(16px) saturate(150%)!important}
   .repair-brand-actions{gap:5px}
 }
