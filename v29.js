@@ -1,4 +1,4 @@
-/* Fanta Live 2.9.1 — undo Riparazione accanto alle impostazioni + pulizia strategia */
+/* Fanta Live 2.9.2 — pulizia strategia + import Leghe diretto */
 (function(){
   'use strict';
   const $=id=>document.getElementById(id);
@@ -9,28 +9,25 @@
     catch(e){return{teams:[],transactions:[]}}
   }
 
-  function strategyBlocks(){
-    const modal=$('repairPlayerModal');if(!modal)return[];
-    const anchors=[...modal.querySelectorAll('strong,b')].filter(el=>/strategia\s+riparazione/i.test(el.textContent||''));
-    const found=[];
-    for(const a of anchors){
-      let n=a.parentElement,best=null;
-      while(n&&n!==modal){
-        const cls=String(n.className||'');
-        const txt=String(n.textContent||'').trim();
-        if(txt.length<700&&(/strategy|strategia|detail-box|\bbox\b/i.test(cls)))best=n;
-        if(/repair-player-info-v27/.test(cls))break;
-        n=n.parentElement;
-      }
-      const block=best||a.parentElement;if(block&&!found.includes(block))found.push(block);
-    }
-    return found;
-  }
-
   function cleanupRepairStrategy(){
-    const blocks=strategyBlocks();if(blocks.length<2)return;
-    const keep=blocks.find(x=>/potere\s+d['’]acquisto/i.test(x.textContent||''))||blocks[blocks.length-1];
-    for(const b of blocks)if(b!==keep)b.remove();
+    const modal=$('repairPlayerModal');if(!modal)return;
+    const info=$('repairPlayerInfo');
+    const keep=info?.querySelector('.repair-detail-box.strategy')||null;
+
+    /* La strategia completa resta solo nel riquadro inferiore creato da v27. */
+    if(keep){
+      modal.querySelectorAll('.repair-detail-box.strategy').forEach(el=>{if(el!==keep)el.remove()});
+      const anchors=[...modal.querySelectorAll('strong,b')].filter(el=>/strategia\s+riparazione/i.test(el.textContent||''));
+      for(const a of anchors){
+        if(keep.contains(a))continue;
+        const block=a.closest('.repair-detail-box,.repair-player-strategy,.repair-strategy,.strategy,.box')||a.parentElement;
+        if(block&&!keep.contains(block))block.remove();
+      }
+    }
+
+    /* Il tetto consigliato è già riportato nella strategia inferiore: niente doppione in testata. */
+    const cap=modal.querySelector('.repair-cap');
+    if(cap)cap.style.display='none';
   }
 
   function hasUndo(){
@@ -48,7 +45,6 @@
   }
 
   function ensureRepairUndo(){
-    /* Rimuove l'eventuale vecchio undo posizionato nella barra Asta/Riparazione. */
     document.querySelectorAll('.app-shell-controls .repair-top-actions').forEach(el=>el.remove());
 
     const brand=document.querySelector('.repair-brand'),gear=$('repairSettingsBtn');
@@ -85,9 +81,19 @@
 
   function polishImporterCopy(){
     const b=$('importDirectLeagueBtn')||$('importLeagueBtn')||$('importCreditsBtn');
-    if(b){b.textContent='🔐 Importa Lega';b.title='Apri qualsiasi pagina della tua lega: non serve /squadre';}
+    if(b){
+      b.textContent='🔐 Importa Lega';
+      b.title='Importa direttamente dalla sessione Leghe: non serve alcun link /squadre';
+    }
     const note=document.querySelector('.repair-source-note');
-    if(note)note.textContent='Importa Lega funziona da qualsiasi pagina della tua lega già aperta in Safari o Chrome: non serve trovare /squadre né copiare un URL specifico.';
+    if(note)note.textContent='Importa Lega funziona da qualsiasi schermata della tua lega già aperta in Safari o Chrome: non serve trovare /squadre né copiare un URL specifico.';
+
+    const modal=$('directLegheModal');
+    if(modal){
+      const h=modal.querySelector('.leghe-import-head h3');if(h)h.textContent='Importa direttamente dalla lega';
+      const p=modal.querySelector('.repair-help');if(p)p.innerHTML='Non devi cercare nessun link particolare. Configura una sola volta <b>Fanta Live Import</b>, poi apri <b>qualsiasi schermata</b> della tua lega e tocca il preferito: Fanta Live importa automaticamente squadre, crediti, rose e svincolati.';
+      const st=$('directStatus');if(st&&!/copiato|errore/i.test(st.textContent||''))st.textContent='Nessun /squadre richiesto: va bene qualunque pagina della lega aperta e autenticata.';
+    }
   }
 
   function bind(){
@@ -95,8 +101,11 @@
     const modal=$('repairPlayerModal');if(modal)new MutationObserver(()=>{if(modal.classList.contains('show'))setTimeout(cleanupRepairStrategy,0)}).observe(modal,{attributes:true,attributeFilter:['class'],childList:true,subtree:true});
     const tx=$('repairTransactions');if(tx)new MutationObserver(syncUndoState).observe(tx,{childList:true,subtree:true});
     new MutationObserver(()=>{ensureRepairUndo();polishImporterCopy()}).observe(document.body,{attributes:true,attributeFilter:['class']});
-    document.addEventListener('click',e=>{if(e.target.closest?.('.repair-player'))setTimeout(cleanupRepairStrategy,25)});
-    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.9.1';
+    document.addEventListener('click',e=>{
+      if(e.target.closest?.('.repair-player'))setTimeout(cleanupRepairStrategy,25);
+      if(e.target.closest?.('#importDirectLeagueBtn,#importLeagueBtn,#importCreditsBtn'))setTimeout(polishImporterCopy,40);
+    });
+    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.9.2';
     setTimeout(()=>{ensureRepairUndo();cleanupRepairStrategy();polishImporterCopy()},700);
     setTimeout(()=>{ensureRepairUndo();cleanupRepairStrategy();polishImporterCopy()},2200);
   }
