@@ -1,4 +1,4 @@
-/* Fanta Live 2.9.2 — pulizia strategia + import Leghe diretto */
+/* Fanta Live 3.0.0 — Liquid Glass + pulizia strategia + import Leghe diretto */
 (function(){
   'use strict';
   const $=id=>document.getElementById(id);
@@ -105,7 +105,7 @@
       if(e.target.closest?.('.repair-player'))setTimeout(cleanupRepairStrategy,25);
       if(e.target.closest?.('#importDirectLeagueBtn,#importLeagueBtn,#importCreditsBtn'))setTimeout(polishImporterCopy,40);
     });
-    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.9.2';
+    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 3.0.0 · Liquid Glass';
     setTimeout(()=>{ensureRepairUndo();cleanupRepairStrategy();polishImporterCopy()},700);
     setTimeout(()=>{ensureRepairUndo();cleanupRepairStrategy();polishImporterCopy()},2200);
   }
