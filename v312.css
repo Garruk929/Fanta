@@ -1,0 +1,32 @@
+/* Fanta Live 3.1.2 — coerenza filtri Asta/Riparazione */
+
+/* Riparazione: nelle card ruolo lascia solo P/D/C/A + numero, senza etichette estese. */
+#repairPanel .repair-role-stat small{display:none!important}
+#repairPanel .repair-role-stat{min-height:52px!important;padding:7px 5px!important}
+#repairPanel .repair-role-stat span{margin-top:3px!important}
+
+/* P/D/C/A: identico feedback visivo in Asta e Riparazione. */
+#auctionPanel #roles .role,
+#repairPanel .repair-role-stat{
+  transition:opacity .16s ease,transform .16s ease,border-color .16s ease,box-shadow .16s ease,background .16s ease!important;
+}
+#auctionPanel #roles .role.filter-active,
+#repairPanel .repair-role-stat.active{
+  opacity:1!important;
+  filter:none!important;
+  transform:translateY(-1px)!important;
+  border-color:color-mix(in srgb,var(--role) 72%,rgba(255,255,255,.18))!important;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--role) 15%,rgba(255,255,255,.09)),rgba(255,255,255,.025)),rgba(15,29,48,.52)!important;
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--role) 34%,transparent),0 0 18px color-mix(in srgb,var(--role) 24%,transparent),0 9px 24px rgba(0,0,0,.17),inset 0 1px 0 rgba(255,255,255,.13)!important;
+}
+body.repair-mode #repairPanel .repair-role-stat.active{
+  background:linear-gradient(145deg,color-mix(in srgb,var(--role) 15%,rgba(255,255,255,.09)),rgba(255,255,255,.02)),rgba(47,27,60,.52)!important;
+}
+
+/* Quando un ruolo è selezionato gli altri si attenuano allo stesso modo nelle due modalità. */
+#auctionPanel #roles.role-filtering .role:not(.filter-active),
+#repairPanel .repair-role-stats.v31-role-filtering .repair-role-stat:not(.active){opacity:.30!important}
+
+@media(max-width:520px){
+  #repairPanel .repair-role-stat{min-height:49px!important;padding:6px 4px!important}
+}
