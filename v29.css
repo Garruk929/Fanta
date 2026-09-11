@@ -1,4 +1,4 @@
-/* Fanta Live 2.9.2 — coerenza Riparazione */
+/* Fanta Live 2.9.3 — coerenza Riparazione */
 .repair-brand-actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex:none}
 .repair-brand-actions .repair-gear{margin:0!important;flex:none}
 .repair-brand-actions .repair-undo-top:disabled{opacity:.28;filter:saturate(.3);pointer-events:none}
@@ -14,6 +14,23 @@ body.repair-mode .app-shell-head .mode-tab.repair-tab.active{
   border-color:rgba(219,154,255,.28)!important;
   color:#fff!important;
   box-shadow:0 5px 16px rgba(151,76,203,.24)!important;
+}
+
+/* Schede giocatore Riparazione: sempre viola. Il ruolo resta solo come accento colore. */
+body.repair-mode .repair-player,
+body.repair-mode .repair-player.p,
+body.repair-mode .repair-player.d,
+body.repair-mode .repair-player.c,
+body.repair-mode .repair-player.a{
+  background:linear-gradient(145deg,rgba(54,30,70,.98),rgba(31,18,44,.98))!important;
+  border-color:rgba(223,151,255,.16)!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.15)!important;
+}
+body.repair-mode .repair-player .photo{
+  background:color-mix(in srgb,var(--role) 9%,#2b1837)!important;
+}
+body.repair-mode .repair-player.unavailable{
+  background:linear-gradient(145deg,rgba(46,28,58,.72),rgba(27,17,38,.72))!important;
 }
 
 /* Il tetto consigliato resta solo nella Strategia riparazione inferiore. */
