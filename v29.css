@@ -1,0 +1,6 @@
+/* Fanta Live 2.9.0 — undo Riparazione nella testata */
+.repair-top-actions{display:none;align-items:center;gap:4px;margin-left:auto;flex:none}
+body.repair-mode .repair-top-actions{display:flex}
+.repair-top-actions .icon{width:27px!important;height:27px!important;border-radius:9px!important;font-size:12px!important;padding:0!important;border:1px solid rgba(223,151,255,.12)!important;background:rgba(255,255,255,.045)!important;color:#f5f8fc!important}
+.repair-top-actions .icon:disabled{opacity:.28;filter:saturate(.3);pointer-events:none}
+@media(max-width:520px){.repair-top-actions .icon{width:25px!important;height:25px!important;font-size:11px!important;border-radius:8px!important}}
