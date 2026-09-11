@@ -1,4 +1,4 @@
-/* Fanta Live 3.1.2 — fix filtro Miei + coerenza filtri */
+/* Fanta Live 3.1.3 — fix definitivo stabilità touch + coerenza filtri */
 (function(){
   'use strict';
   const MINE_FILTER_KEY='fantaRepairMineFilterV31';
@@ -7,30 +7,29 @@
   function mineChip(){return document.querySelector('#repairChips [data-v31="MINE"]')}
   function clearMineVisual(){
     localStorage.setItem(MINE_FILTER_KEY,'0');
-    mineChip()?.classList.remove('active');
+    const chip=mineChip();
+    if(chip&&chip.classList.contains('active'))chip.classList.remove('active');
   }
 
+  /*
+    IMPORTANTE: niente MutationObserver sulle classi dei filtri.
+    Su iOS il render della riparazione cambia spesso le classi active; osservare le
+    stesse classi e modificarle di nuovo dal callback può creare un loop di microtask
+    che blocca il main thread e fa sembrare morto tutto il touch.
+    La sincronizzazione viene fatta solo in risposta a click reali dell'utente.
+  */
   function bindExclusiveRepairFilters(){
-    document.addEventListener('click',e=>{
-      const normal=e.target.closest?.('#repairChips [data-rf]');
-      if(normal){
-        clearMineVisual();
-        return;
-      }
-      const role=e.target.closest?.('#repairRoleStats [data-role-stat]');
-      if(role){
-        clearMineVisual();
-        return;
-      }
-      if(e.target.closest?.('#auctionTab')) clearMineVisual();
-    },true);
+    if(document.documentElement.dataset.v313FilterBound==='1')return;
+    document.documentElement.dataset.v313FilterBound='1';
 
-    const chips=$('repairChips');
-    if(chips){
-      new MutationObserver(()=>{
-        if(localStorage.getItem(MINE_FILTER_KEY)!=='1')mineChip()?.classList.remove('active');
-      }).observe(chips,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
-    }
+    document.addEventListener('click',e=>{
+      const target=e.target;
+      if(!target?.closest)return;
+      const normal=target.closest('#repairChips [data-rf]');
+      const role=target.closest('#repairRoleStats [data-role-stat]');
+      const auction=target.closest('#auctionTab');
+      if(normal||role||auction)clearMineVisual();
+    },false);
   }
 
   function polishImportCopy(){
@@ -51,7 +50,7 @@
     bindExclusiveRepairFilters();
     polishImportCopy();
     document.addEventListener('click',e=>{if(e.target.closest?.('#importDirectLeagueBtn,#importLeagueBtn,#importCreditsBtn'))setTimeout(polishImportCopy,40)});
-    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 3.1.2 · Liquid Glass';
+    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 3.1.3 · Liquid Glass';
     setTimeout(polishImportCopy,700);setTimeout(polishImportCopy,2200);
   }
 
