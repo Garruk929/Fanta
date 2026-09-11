@@ -1,4 +1,4 @@
-/* Fanta Live 3.1.2 — coerenza filtri Asta/Riparazione */
+/* Fanta Live 3.1.4 — coerenza filtri Asta/Riparazione */
 
 /* Riparazione: nelle card ruolo lascia solo P/D/C/A + numero, senza etichette estese. */
 #repairPanel .repair-role-stat small{display:none!important}
@@ -27,6 +27,40 @@ body.repair-mode #repairPanel .repair-role-stat.active{
 #auctionPanel #roles.role-filtering .role:not(.filter-active),
 #repairPanel .repair-role-stats.v31-role-filtering .repair-role-stat:not(.active){opacity:.30!important}
 
+/* Prezzo giocatori: in Riparazione resta bianco come nell'Asta, indipendentemente dal ruolo. */
+#repairPanel .repair-player .repair-price b{color:#f5f8fc!important}
+
+/* Schede giocatore: stessa impronta visiva e stesse dimensioni dell'Asta. */
+#auctionPanel .player,
+#repairPanel .repair-player{
+  grid-template-columns:46px minmax(0,1fr) auto!important;
+  gap:10px!important;
+  border-radius:15px!important;
+  padding:8px 10px!important;
+  min-height:58px!important;
+}
+#auctionPanel .player .photo,
+#repairPanel .repair-player .photo{width:40px!important;height:40px!important;border-radius:12px!important}
+#auctionPanel .player .name,
+#repairPanel .repair-player .name{font-size:14px!important}
+#auctionPanel .price,
+#repairPanel .repair-price{min-width:55px!important}
+#auctionPanel .price b,
+#repairPanel .repair-price b{font-size:19px!important}
+#auctionPanel .price small,
+#repairPanel .repair-price small{font-size:7px!important}
+
+/* Anche i tab/filtro giocatori mantengono la stessa misura nelle due modalità. */
+#auctionPanel .chips .chip,
+#repairPanel .repair-chips button{
+  min-height:31px!important;
+  border-radius:999px!important;
+  padding:7px 4px!important;
+  font-size:9px!important;
+  line-height:1!important;
+}
+
 @media(max-width:520px){
   #repairPanel .repair-role-stat{min-height:49px!important;padding:6px 4px!important}
+  #auctionPanel .chips .chip,#repairPanel .repair-chips button{min-height:30px!important;font-size:8.5px!important;padding:7px 3px!important}
 }
