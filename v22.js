@@ -1,4 +1,4 @@
-/* Fanta Live 2.9 — bootstrap UI, import Leghe diretto e schede coerenti */
+/* Fanta Live 3.0.1 — bootstrap UI, import Leghe diretto e schede coerenti */
 (function(){
   'use strict';
   const $=id=>document.getElementById(id);
@@ -23,8 +23,8 @@
   function loadStyle(href,key){if(document.querySelector(`link[data-${key}]`))return;const l=document.createElement('link');l.rel='stylesheet';l.href=href;l.dataset[key]='1';document.head.appendChild(l)}
   function loadScript(src,key){if(document.querySelector(`script[data-${key}]`))return;const s=document.createElement('script');s.src=src;s.async=false;s.dataset[key]='1';document.body.appendChild(s)}
   function syncCopy(){
-    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.9.0';
-    const note=document.querySelector('.repair-source-note');if(note)note.textContent='Da iPhone: usa “Importa Lega”. Non devi trovare /squadre né copiare un link specifico: il preferito Fanta Live Import funziona da qualsiasi pagina della lega aperta in Safari o Chrome.';
+    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 3.0.1 · Liquid Glass';
+    const note=document.querySelector('.repair-source-note');if(note)note.textContent='Da iPhone: usa “Importa Lega”. Non devi trovare /squadre né copiare un link specifico: Fanta Live Import funziona da qualsiasi pagina della lega aperta in Safari o Chrome.';
   }
 
   setupRoleSync();
@@ -38,7 +38,9 @@
   loadScript('v27.js?v=2.7.0','fantaV27');
   loadStyle('v28.css?v=2.8.0','fantaV28');
   loadScript('v28.js?v=2.8.0','fantaV28');
-  loadStyle('v29.css?v=2.9.0','fantaV29');
-  loadScript('v29.js?v=2.9.0','fantaV29');
+  loadStyle('v29.css?v=3.0.0','fantaV29');
+  loadScript('v29.js?v=3.0.0','fantaV29');
+  loadStyle('v301.css?v=3.0.1','fantaV301');
+  loadScript('v301.js?v=3.0.1','fantaV301');
   syncCopy();setTimeout(syncCopy,900);setTimeout(syncCopy,2600);
 })();
