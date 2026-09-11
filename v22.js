@@ -1,4 +1,4 @@
-/* Fanta Live 2.6 — bootstrap UI, filtri ruolo e import Leghe diretto */
+/* Fanta Live 2.7 — bootstrap UI, filtri ruolo, import Leghe diretto e dettagli Riparazione */
 (function(){
   'use strict';
   const $=id=>document.getElementById(id);
@@ -22,8 +22,8 @@
   }
   function loadStyle(href,key){if(document.querySelector(`link[data-${key}]`))return;const l=document.createElement('link');l.rel='stylesheet';l.href=href;l.dataset[key]='1';document.head.appendChild(l)}
   function loadScript(src,key){if(document.querySelector(`script[data-${key}]`))return;const s=document.createElement('script');s.src=src;s.async=false;s.dataset[key]='1';document.body.appendChild(s)}
-  function sync26Copy(){
-    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.6.0';
+  function sync27Copy(){
+    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 2.7.0';
     const note=document.querySelector('.repair-source-note');if(note)note.textContent='Da iPhone: usa “Importa Lega”. Non devi trovare né copiare un link: il preferito Fanta Live Import legge direttamente la lega aperta in Safari o Chrome.';
   }
 
@@ -34,5 +34,7 @@
   loadStyle('v25.css?v=2.6.0','fantaV25');
   loadStyle('v26.css?v=2.6.0','fantaV26');
   loadScript('v26.js?v=2.6.0','fantaV26');
-  sync26Copy();setTimeout(sync26Copy,900);setTimeout(sync26Copy,2600);
+  loadStyle('v27.css?v=2.7.0','fantaV27');
+  loadScript('v27.js?v=2.7.0','fantaV27');
+  sync27Copy();setTimeout(sync27Copy,900);setTimeout(sync27Copy,2600);
 })();
