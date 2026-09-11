@@ -1,0 +1,12 @@
+/* Fanta Live 3.0.1 — rimuove i filtri ruolo duplicati */
+
+/* I ruoli si selezionano dalle card P/D/C/A sopra: niente doppio controllo sotto la ricerca. */
+#auctionPanel .chips .rolechip{display:none!important}
+#repairPanel .repair-chips button[data-rf="P"],
+#repairPanel .repair-chips button[data-rf="D"],
+#repairPanel .repair-chips button[data-rf="C"],
+#repairPanel .repair-chips button[data-rf="A"]{display:none!important}
+
+/* Dopo la rimozione, la riga filtri resta compatta e pulita. */
+#auctionPanel .chips,
+#repairPanel .repair-chips{gap:6px!important;padding-top:6px!important}
