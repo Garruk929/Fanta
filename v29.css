@@ -1,10 +1,24 @@
-/* Fanta Live 2.9.1 — undo Riparazione accanto all'ingranaggio */
+/* Fanta Live 2.9.2 — coerenza Riparazione */
 .repair-brand-actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex:none}
 .repair-brand-actions .repair-gear{margin:0!important;flex:none}
 .repair-brand-actions .repair-undo-top:disabled{opacity:.28;filter:saturate(.3);pointer-events:none}
 
 /* Il vecchio contenitore nella riga Asta/Riparazione non deve più comparire. */
 .app-shell-controls .repair-top-actions{display:none!important}
+
+/* In Riparazione il tab attivo deve essere viola, non blu come l'asta. */
+body.repair-mode #repairTab.active,
+body.repair-mode .app-shell-controls #repairTab.active,
+body.repair-mode .app-shell-head .mode-tab.repair-tab.active{
+  background:linear-gradient(135deg,#7d45bd,#a957d8)!important;
+  border-color:rgba(219,154,255,.28)!important;
+  color:#fff!important;
+  box-shadow:0 5px 16px rgba(151,76,203,.24)!important;
+}
+
+/* Il tetto consigliato resta solo nella Strategia riparazione inferiore. */
+#repairPlayerModal .repair-cap{display:none!important}
+#repairPlayerModal .repair-player-head{grid-template-columns:auto minmax(0,1fr)!important}
 
 @media(max-width:520px){
   .repair-brand-actions{gap:5px}
