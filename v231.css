@@ -1,4 +1,4 @@
-/* Fanta Live 2.3.4 — testata compatta, riparazione senza vuoti, ricerca coerente */
+/* Fanta Live 2.3.5 — testata compatta, riparazione senza vuoti, ricerca coerente */
 
 /* La safe-area viene gestita una sola volta dalla testata globale. */
 #auctionPanel .app{padding-top:5px!important}
@@ -69,6 +69,25 @@ body.repair-mode .app-shell-controls .brand-actions{display:none!important}
 }
 .repair-brand{margin-top:0!important}
 body.repair-mode .app-shell-head{margin-bottom:0!important}
+
+/* Schede giocatore riparazione: base viola, mantenendo il colore ruolo solo come accento. */
+body.repair-mode .repair-player{
+  background:linear-gradient(145deg,rgba(49,27,64,.97),rgba(28,17,40,.97))!important;
+  border-color:rgba(223,151,255,.16)!important;
+  box-shadow:0 6px 18px rgba(0,0,0,.14)!important;
+}
+body.repair-mode .repair-player.p,
+body.repair-mode .repair-player.d,
+body.repair-mode .repair-player.c,
+body.repair-mode .repair-player.a{
+  background:linear-gradient(145deg,rgba(49,27,64,.97),rgba(28,17,40,.97))!important;
+}
+body.repair-mode .repair-player .photo{
+  background:color-mix(in srgb,var(--role) 9%,#2a1736)!important;
+}
+body.repair-mode .repair-player.unavailable{
+  background:linear-gradient(145deg,rgba(42,25,52,.72),rgba(25,16,35,.72))!important;
+}
 
 /* Barre di ricerca: più piccole, scure e coerenti con l'interfaccia. */
 .search,.repair-search{margin-top:7px!important}
