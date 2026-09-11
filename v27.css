@@ -1,0 +1,14 @@
+/* Fanta Live 2.7.0 — dettagli giocatore e filtro infortunati in Riparazione */
+.repair-injury-chip{color:#ff9ca5!important;border-color:rgba(255,105,119,.24)!important;background:rgba(255,105,119,.07)!important}
+.repair-injury-chip.active{color:#fff!important;background:linear-gradient(135deg,#c94a64,#e6637a)!important;border-color:transparent!important;box-shadow:0 5px 16px rgba(201,74,100,.18)!important}
+
+.repair-player-info-v27{display:grid!important;gap:7px!important;margin:9px 0!important;border:0!important;background:transparent!important;padding:0!important}
+.repair-detail-signal{justify-self:start;border-radius:999px;padding:5px 8px;font-size:8.5px;font-weight:950;letter-spacing:.01em}
+.repair-detail-signal span{font-weight:800;opacity:.82}.repair-detail-signal.green{color:#78e7aa;background:rgba(66,213,140,.11);border:1px solid rgba(66,213,140,.15)}.repair-detail-signal.yellow{color:#ffda7c;background:rgba(246,207,98,.1);border:1px solid rgba(246,207,98,.14)}.repair-detail-signal.red{color:#ff98a4;background:rgba(255,105,119,.1);border:1px solid rgba(255,105,119,.16)}
+.repair-detail-box{border:1px solid var(--repairLine);border-radius:12px;background:rgba(255,255,255,.032);padding:9px 10px;color:#cdbed5;font-size:9.5px;line-height:1.42}
+.repair-detail-box strong{color:#fff}.repair-detail-box.profile{background:rgba(180,108,255,.065);border-color:rgba(190,123,255,.15)}.repair-detail-box.health{background:rgba(255,255,255,.025)}.repair-detail-box.penalties{background:rgba(246,207,98,.045);border-color:rgba(246,207,98,.12)}.repair-detail-box.strategy{background:rgba(102,141,255,.05);border-color:rgba(102,141,255,.12)}.repair-detail-box.strategy b{color:#fff}.repair-ok{color:#72e6a7!important}
+
+@media(max-width:520px){
+  .repair-detail-box{padding:8px 9px;font-size:9px;line-height:1.38}
+  .repair-detail-signal{font-size:8px;padding:5px 7px}
+}
