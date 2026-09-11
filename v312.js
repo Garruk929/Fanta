@@ -1,4 +1,4 @@
-/* Fanta Live 3.1.5 — fix definitivo stabilità touch + coerenza filtri */
+/* Fanta Live 3.1.6 — fix definitivo stabilità touch + coerenza filtri */
 (function(){
   'use strict';
   const MINE_FILTER_KEY='fantaRepairMineFilterV31';
@@ -50,7 +50,7 @@
     bindExclusiveRepairFilters();
     polishImportCopy();
     document.addEventListener('click',e=>{if(e.target.closest?.('#importDirectLeagueBtn,#importLeagueBtn,#importCreditsBtn'))setTimeout(polishImportCopy,40)});
-    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 3.1.5 · Liquid Glass';
+    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 3.1.6 · Liquid Glass';
     setTimeout(polishImportCopy,700);setTimeout(polishImportCopy,2200);
   }
 
