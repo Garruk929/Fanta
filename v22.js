@@ -1,4 +1,4 @@
-/* Fanta Live 3.1.3 — bootstrap UI, import Leghe diretto e stabilità touch */
+/* Fanta Live 3.1.7 — bootstrap UI, import Leghe diretto e stabilità touch */
 (function(){
   'use strict';
   const $=id=>document.getElementById(id);
@@ -23,8 +23,8 @@
   function loadStyle(href,key){if(document.querySelector(`link[data-${key}]`))return;const l=document.createElement('link');l.rel='stylesheet';l.href=href;l.dataset[key]='1';document.head.appendChild(l)}
   function loadScript(src,key){if(document.querySelector(`script[data-${key}]`))return;const s=document.createElement('script');s.src=src;s.async=false;s.dataset[key]='1';document.body.appendChild(s)}
   function syncCopy(){
-    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 3.1.3 · Liquid Glass';
-    const note=document.querySelector('.repair-source-note');if(note)note.textContent='Importa Lega funziona da qualsiasi pagina della tua lega già aperta nel browser: non serve trovare /squadre né copiare URL speciali.';
+    const v=document.querySelector('.aboutTitle span');if(v)v.textContent='Versione pubblica 3.1.7 · Liquid Glass';
+    const note=document.querySelector('.repair-source-note');if(note)note.textContent='Importa Lega: incolla qualunque link della tua lega, oppure usa Fanta Live Import dalla sessione autenticata. Non serve trovare /squadre.';
   }
 
   setupRoleSync();
@@ -45,6 +45,8 @@
   loadStyle('v31.css?v=3.1.1','fantaV31');
   loadScript('v31.js?v=3.1.1','fantaV31');
   loadStyle('v312.css?v=3.1.2','fantaV312');
-  loadScript('v312.js?v=3.1.3','fantaV312');
+  loadScript('v312.js?v=3.1.6','fantaV312');
+  loadStyle('v317.css?v=3.1.7','fantaV317');
+  loadScript('v317.js?v=3.1.7','fantaV317');
   syncCopy();setTimeout(syncCopy,900);setTimeout(syncCopy,2600);
 })();
